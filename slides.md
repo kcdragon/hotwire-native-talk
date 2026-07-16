@@ -1,5 +1,6 @@
 ---
 theme: default
+colorSchema: light
 title: Introduction to Hotwire Native
 info: |
   ## Introduction to Hotwire Native
