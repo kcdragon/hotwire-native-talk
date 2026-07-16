@@ -42,12 +42,14 @@ layout: center
 layout: image
 image: /images/triumph-site-1.png
 backgroundSize: contain
+title: Triumph website
 ---
 
 ---
 layout: image
 image: /images/triumph-site-2.png
 backgroundSize: contain
+title: Triumph website (cont.)
 ---
 
 ---
@@ -66,6 +68,7 @@ layout: statement
 layout: image
 image: /images/triumph-site-3.png
 backgroundSize: contain
+title: Triumph website (triumph.io)
 ---
 
 ---
@@ -84,6 +87,7 @@ layout: statement
 
 ---
 layout: center
+title: Chicago photos
 ---
 
 <div class="flex gap-8 items-center justify-center">
@@ -111,6 +115,7 @@ layout: center
 layout: image
 image: /images/remote-2017-2021.png
 backgroundSize: contain
+title: Working remotely
 ---
 
 ---
@@ -2035,12 +2040,14 @@ layout: two-cols
 layout: image
 image: /images/outro-1.png
 backgroundSize: contain
+title: Outro
 ---
 
 ---
 layout: image
 image: /images/outro-2.png
 backgroundSize: contain
+title: Outro (cont.)
 ---
 
 ---
