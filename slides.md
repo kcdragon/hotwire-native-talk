@@ -16,8 +16,6 @@ mdc: true
 
 ## Build iOS and Android apps with Ruby on Rails
 
-<br>
-
 Mike Dalton
 
 ---
@@ -71,18 +69,6 @@ image: /images/triumph-site-3.png
 backgroundSize: contain
 title: Triumph website (triumph.io)
 ---
-
----
-layout: section
----
-
-# Hotwire
-
-<img src="/images/hotwire-logo.png" class="max-h-40 mx-auto mt-8" />
-
-<!--
-"Before jumping into Hotwire Native, we should discuss Hotwire"
--->
 
 ---
 layout: image-right
