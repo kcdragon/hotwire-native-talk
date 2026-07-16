@@ -30,12 +30,12 @@ image: /images/me.jpg
 - Using Hotwire Native on my side project
 
 ---
-layout: center
+layout: inline-image
+text: I work at
+image: /images/triumph-logo.svg
+position: after
+imageClass: w-90
 ---
-
-# I work at
-
-<img src="/images/triumph-logo.jpg" class="max-h-60 mx-auto" />
 
 ---
 layout: image
