@@ -19,15 +19,25 @@ mdc: true
 Mike Dalton
 
 ---
-layout: image-right
-image: /images/me.jpg
+layout: inline-image
+text: Hi, I'm Mike
+image: /images/mike-dalton.jpg
+position: before
+imageClass: h-64 w-64 rounded-full object-cover
 ---
 
-# Introduction
+<img v-drag="[316,284,120,75]" src="/images/mustache.png" alt="Mustache" />
 
-- Based in Philadelphia
-- Ruby on Rails developer
-- Using Hotwire Native on my side project
+<!--
+Hi! I'm Mike. You may know me as this floating head from social media. I've had a couple people mention it doesn't quite look like me anymore so I've updated it to include a mustache.
+-->
+
+---
+layout: image
+image: /images/iasip-new.png
+backgroundSize: contain
+title: It's Always Sunny
+---
 
 ---
 layout: inline-image
@@ -35,6 +45,14 @@ text: I work at
 image: /images/triumph-logo.svg
 position: after
 imageClass: w-90
+---
+
+---
+layout: inline-image
+text: Building Calendar Vision
+image: /images/calendar-vision-logo.png
+position: before
+imageClass: w-60 rounded-2xl
 ---
 
 ---
