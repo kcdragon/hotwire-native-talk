@@ -1,12 +1,12 @@
 ---
 theme: default
 colorSchema: light
-title: Introduction to Hotwire Native
+title: Hotwire Native
 info: |
-  ## Introduction to Hotwire Native
+  ## Hotwire Native
   Build iOS and Android apps with Ruby on Rails
 
-  Chicago Ruby — March 2026
+  Ruby Conf Africa — August 2026
 class: text-center
 transition: slide-left
 mdc: true
