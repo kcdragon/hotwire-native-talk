@@ -35,7 +35,7 @@ Hi! I'm Mike. You may know me as this floating head from social media. I've had 
 ---
 layout: image
 image: /images/iasip-new.png
-backgroundSize: contain
+backgroundSize: cover
 title: It's Always Sunny
 ---
 
@@ -107,30 +107,16 @@ layout: quote
 
 [https://hotwired.dev/](https://hotwired.dev/)
 
-<!--
-This is a quote from the official Hotwire website
--->
-
 ---
 layout: center
+title: Hotwire libraries
 ---
 
-# Hotwire
+<img v-drag="[83,254,204,45]" src="/images/turbo.svg" />
 
-<div class="flex gap-16 items-center justify-center mt-8">
-  <div class="text-center">
-    <img src="/images/turbo.svg" class="h-32 mx-auto" />
-    <div class="mt-4 text-xl">Turbo</div>
-  </div>
-  <div class="text-center">
-    <img src="/images/stimulus.svg" class="h-32 mx-auto" />
-    <div class="mt-4 text-xl">Stimulus</div>
-  </div>
-  <div class="text-center">
-    <img src="/images/native.svg" class="h-32 mx-auto" />
-    <div class="mt-4 text-xl">Native</div>
-  </div>
-</div>
+<img v-drag="[351,254,278,45]" src="/images/stimulus.svg" />
+
+<img v-drag="[685,254,218,45]" src="/images/native.svg" />
 
 <!--
 "Hotwire is made up of 3 parts…"
