@@ -463,6 +463,10 @@ layout: section
 - Hotwire Native apps are Native apps
 
 ---
+layout: image-right
+image: /images/setup-ios-xcode-template.png
+backgroundSize: 90%
+---
 
 # Project Setup
 
@@ -494,7 +498,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         startLocation: rootURL
     ))
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(
+        _ scene: UIScene,
+        willConnectTo session: UISceneSession,
+        options connectionOptions: UIScene.ConnectionOptions
+    ) {
         window?.rootViewController = navigator.rootViewController
         navigator.start()
     }
