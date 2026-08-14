@@ -10,6 +10,8 @@ info: |
 class: text-center
 transition: slide-left
 mdc: true
+addons:
+  - fancy-arrow
 ---
 
 # Introduction to Hotwire Native
@@ -33,10 +35,37 @@ Hi! I'm Mike. You may know me as this floating head from social media. I've had 
 -->
 
 ---
+class: text-center
+---
+
+# I'm from Philadelphia
+
+<img v-drag="[180,110,620,383]" src="/images/us-map.svg" alt="Map of the United States" />
+
+<div v-drag="[711,247,12,12]" data-id="philly-dot" class="rounded-full bg-red-600 ring-2 ring-red-300"></div>
+
+<div v-drag="[740,135,170,40]" data-id="philly-label" class="text-2xl font-bold text-red-600 whitespace-nowrap">Philadelphia</div>
+
+<div class="absolute inset-0 pointer-events-none" style="z-index: 200">
+  <FancyArrow from="(786,164)" to="(720,250)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="0.2" seed="7" />
+</div>
+
+<!--
+I'm from Philadelphia — right here on the East Coast. Which brings me to my next point...
+-->
+
+---
 layout: image
 image: /images/iasip-new.png
 backgroundSize: cover
 title: It's Always Sunny
+---
+
+---
+layout: image
+image: /images/rocky-italian-market.jpg
+backgroundSize: cover
+title: Rocky running through the Italian Market
 ---
 
 ---
