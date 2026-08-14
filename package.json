@@ -5,12 +5,16 @@
   "scripts": {
     "dev": "slidev --open",
     "build": "slidev build",
-    "export": "slidev export"
+    "export": "slidev export",
+    "check:overflow": "slidev-overflow-checker --url http://localhost:3030 --project ./ --verbose"
   },
   "dependencies": {
     "@slidev/cli": "^52.18.0",
     "@slidev/theme-default": "^0.25.0",
     "slidev-addon-fancy-arrow": "^0.17.0",
     "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "slidev-overflow-checker": "^0.1.0"
   }
 }
