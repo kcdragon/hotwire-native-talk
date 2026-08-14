@@ -396,13 +396,16 @@ layout: section
 # Project Setup
 
 ---
+layout: statement
+---
 
-# Project Setup
+# No generator like `rails new`
 
-<br>
+---
+layout: statement
+---
 
-- No generator like `rails new`
-- Hotwire Native apps are Native apps
+# Hotwire Native apps are Native apps
 
 ---
 layout: image-right
@@ -417,14 +420,38 @@ backgroundSize: 90%
 <br>
 
 - Use the Xcode New Project Wizard
+
+---
+layout: image-right
+image: /images/setup-ios-package-dependency.png
+backgroundSize: 90%
+---
+
+# Project Setup
+
+## iOS
+
+<br>
+
 - Add `hotwire-native-ios` package dependency
-- Replace `SceneDelegate.swift` with…
 
 ---
-class: text-sm
+layout: two-cols
 ---
 
-# Project Setup — iOS
+# Project Setup
+
+## iOS
+
+<br>
+
+- Replace `SceneDelegate.swift`
+
+::right::
+
+<VCenter>
+
+<CodeCaption caption="SceneDelegate.swift" size="xs">
 
 ```swift
 import HotwireNative
@@ -451,7 +478,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 ```
 
-<div class="text-xs opacity-60 text-center">SceneDelegate.swift</div>
+</CodeCaption>
+
+</VCenter>
 
 ---
 
