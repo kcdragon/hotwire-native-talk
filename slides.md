@@ -518,7 +518,9 @@ layout: two-cols
 ```kotlin
 dependencies {
     implementation("dev.hotwire:core:${libs.versions.hotwireNative}")
-    implementation("dev.hotwire:navigation-fragments:${libs.versions.hotwireNative}")
+    implementation(
+        "dev.hotwire:navigation-fragments:${libs.versions.hotwireNative}"
+    )
 }
 ```
 
@@ -981,6 +983,8 @@ class: gap-4 text-sm
 
 <br>
 
+<CodeCaption caption="application.html.erb" size="sm">
+
 ```erb
 <!DOCTYPE html>
 <%= tag.html(
@@ -994,7 +998,7 @@ class: gap-4 text-sm
 <% end %>
 ```
 
-<div class="text-xs opacity-60 text-center">application.html.erb</div>
+</CodeCaption>
 
 ::right::
 
@@ -1110,6 +1114,8 @@ class: gap-4 text-sm
 
 ::right::
 
+<CodeCaption caption="SceneController.swift" size="xs">
+
 ```swift
 class SceneController: UIResponder {
     ...
@@ -1129,7 +1135,7 @@ extension SceneController: UIWindowSceneDelegate {
 }
 ```
 
-<div class="text-xs opacity-60 text-center">SceneController.swift</div>
+</CodeCaption>
 
 ---
 
@@ -1193,6 +1199,8 @@ class: text-xs
 
 # Native Tab Bar — Android
 
+<CodeCaption caption="activity_main.xml" size="xs">
+
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -1223,7 +1231,7 @@ class: text-xs
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
-<div class="text-xs opacity-60 text-center">activity_main.xml</div>
+</CodeCaption>
 
 ---
 class: text-sm
@@ -1780,6 +1788,8 @@ class: gap-4 text-xs
 
 ::right::
 
+<CodeCaption caption="AddToCalendarController.swift" size="xs">
+
 ```swift
 class AddToCalendarController: NSObject {
     private weak var window: UIWindow?
@@ -1790,9 +1800,9 @@ class AddToCalendarController: NSObject {
     }
 
     func addToCalendar(calendarEventId: Int) async {
-        let url = baseUrl.appendingPathComponent("calendar_events/\(calendarEventId)")
+        let url = baseUrl
+            .appendingPathComponent("calendar_events/\(calendarEventId)")
         let viewModel = CalendarEventViewModel(url: url)
-
         await viewModel.fetchCalendarEvent()
 
         guard let calendarEvent = viewModel.calendarEvent else {
@@ -1803,9 +1813,7 @@ class AddToCalendarController: NSObject {
         let event = EKEvent(eventStore: CalendarEventStore.shared)
         event.calendar = CalendarEventStore.shared.defaultCalendarForNewEvents
         event.title = calendarEvent.name
-        event.location = calendarEvent.location
-        event.startDate = calendarEvent.startsAt
-        event.endDate = calendarEvent.endsAt
+        ...
 
         await MainActor.run {
             let eventViewController = AddToCalendarEKEventEditViewController()
@@ -1813,14 +1821,14 @@ class AddToCalendarController: NSObject {
             eventViewController.event = event
             eventViewController.eventStore = CalendarEventStore.shared
             eventViewController.editViewDelegate = self
-
-            window?.rootViewController?.present(eventViewController, animated: true)
+            window?.rootViewController?
+                .present(eventViewController, animated: true)
         }
     }
 }
 ```
 
-<div class="text-xs opacity-60 text-center">AddToCalendarController.swift</div>
+</CodeCaption>
 
 ---
 layout: two-cols
@@ -1836,6 +1844,8 @@ class: gap-4 text-xs
 - Show success toast message
 
 ::right::
+
+<CodeCaption caption="AddToCalendarController.swift" size="xs">
 
 ```swift
 extension AddToCalendarController: EKEventEditViewDelegate {
@@ -1858,7 +1868,7 @@ extension AddToCalendarController: EKEventEditViewDelegate {
 }
 ```
 
-<div class="text-xs opacity-60 text-center">AddToCalendarController.swift</div>
+</CodeCaption>
 
 ---
 class: text-sm
@@ -1975,6 +1985,8 @@ class: text-xs
 
 # Route Decision Handler — handle function
 
+<CodeCaption size="xs">
+
 ```kotlin
 override fun handle(
     location: String,
@@ -2009,6 +2021,8 @@ private fun openCalendarEventInIntent(
     activity.startActivity(intent)
 }
 ```
+
+</CodeCaption>
 
 ---
 class: text-sm

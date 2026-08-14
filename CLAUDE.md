@@ -44,3 +44,18 @@ there rather than inventing sample code.
 - Diagram images may be replaced with Mermaid blocks over time; leave images
   in place until Mike swaps them himself.
 - Videos add ~70MB; plain git (no LFS) is a deliberate choice.
+
+## Overflow checking
+
+`npm run check:overflow` (needs `npm run dev` running on :3030, and a one-time
+`npx playwright install chromium`) renders every slide in a real browser via
+`slidev-overflow-checker` and reports content that overflows the slide. It's a
+manual, opt-in check — not wired into any automation. **It massively over-reports
+on this deck** — it measures element bounding boxes and ignores Slidev's
+scale-to-fit, so it flags ~40+ slides (centered headings, code-block backgrounds,
+images, videos) that are not actually clipped. Do NOT trust its pass/fail or
+count. Only real overflow is a code line cut off on the right or a code block cut
+off at the bottom; verify each flagged code/image slide by rendering
+`http://localhost:3030/<n>` at 1920×1080 before touching it. Fix real clips by
+shrinking with `<CodeCaption size="sm|xs">`, breaking/trimming long lines, or
+splitting the slide.
