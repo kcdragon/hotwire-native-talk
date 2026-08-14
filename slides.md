@@ -483,6 +483,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 </VCenter>
 
 ---
+layout: image-right
+image: /images/setup-android-new-project.png
+backgroundSize: 90%
+---
 
 # Project Setup
 
@@ -491,16 +495,81 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 <br>
 
 - Use the Android Studio New Project Wizard
-- Add `hotwire-native-android` dependencies to Gradle build files
-- Enable internet access in `AndroidManifest.xml`
-- Replace `MainActivity.kt` with…
-- Replace `activity_main.xml` with…
 
 ---
-class: text-sm
+layout: two-cols
 ---
 
-# Project Setup — Android
+# Project Setup
+
+## Android
+
+<br>
+
+- Add `hotwire-native-android` dependency
+
+::right::
+
+<VCenter>
+
+<CodeCaption caption="app/build.gradle.kts" size="xs">
+
+```kotlin
+dependencies {
+    implementation("dev.hotwire:core:${libs.versions.hotwireNative}")
+    implementation("dev.hotwire:navigation-fragments:${libs.versions.hotwireNative}")
+}
+```
+
+</CodeCaption>
+
+</VCenter>
+
+---
+layout: two-cols
+---
+
+# Project Setup
+
+## Android
+
+<br>
+
+- Enable internet access
+
+::right::
+
+<VCenter>
+
+<CodeCaption caption="app/src/main/AndroidManifest.xml" size="xs">
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET"/>
+</manifest>
+```
+
+</CodeCaption>
+
+</VCenter>
+
+---
+layout: two-cols
+---
+
+# Project Setup
+
+## Android
+
+<br>
+
+- Replace `MainActivity.kt`
+
+::right::
+
+<VCenter>
+
+<CodeCaption caption="MainActivity.kt" size="xs">
 
 ```kotlin
 package com.example.myapplication
@@ -530,11 +599,27 @@ class MainActivity : HotwireActivity() {
 }
 ```
 
-<div class="text-xs opacity-60 text-center">MainActivity.kt</div>
+</CodeCaption>
+
+</VCenter>
 
 ---
+layout: two-cols
+---
 
-# Project Setup — Android
+# Project Setup
+
+## Android
+
+<br>
+
+- Replace `activity_main.xml`
+
+::right::
+
+<VCenter>
+
+<CodeCaption caption="activity_main.xml" size="xs">
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -548,7 +633,9 @@ class MainActivity : HotwireActivity() {
     app:defaultNavHost="false" />
 ```
 
-<div class="text-xs opacity-60 text-center">activity_main.xml</div>
+</CodeCaption>
+
+</VCenter>
 
 ---
 
