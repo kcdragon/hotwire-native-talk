@@ -153,9 +153,7 @@ title: Hotwire libraries
 
 ---
 
-# Hotwire
-
-## Turbo
+# Turbo
 
 <br>
 
@@ -165,9 +163,7 @@ title: Hotwire libraries
 
 ---
 
-# Hotwire
-
-## Turbo Drive
+# Turbo Drive
 
 <br>
 
@@ -181,16 +177,39 @@ title: Hotwire libraries
 
 ---
 layout: two-cols
+class: text-xs
 ---
 
-# Hotwire
+# Turbo Frames
 
-## Turbo Frames
+<CodeCaption caption="app/views/feeds/_title.html.erb">
+
+```erb
+<%= turbo_frame_tag dom_id(feed, :title) do %>
+  <h3>
+    <%= link_to feed.title, edit_feed_title_path(feed) %>
+  </h3>
+<% end %>
+```
+
+</CodeCaption>
 
 <br>
 
-- Only update parts of a page
-- Links or form submissions
+<CodeCaption caption="app/views/feeds/titles/edit.html.erb">
+
+```erb
+<%= turbo_frame_tag dom_id(@feed, :title) do %>
+  <%= form_with model: @feed,
+        url: feed_title_path(@feed),
+        method: :patch do |form| %>
+    <%= form.text_field :title %>
+    <%= form.submit "Save" %>
+  <% end %>
+<% end %>
+```
+
+</CodeCaption>
 
 ::right::
 
@@ -198,79 +217,31 @@ layout: two-cols
 
 ---
 layout: two-cols
-class: gap-4 text-xs
+class: text-xs
 ---
 
-# Hotwire — Turbo Frames
+# Turbo Streams
+
+<CodeCaption caption="app/controllers/entries_controller.rb">
 
 ```ruby
-class RemindersController < ApplicationController
-  def index
-    @reminders = Reminder.all
-  end
-
-  def edit
-    @reminder = Reminder.find(params.expect(:id))
-  end
-
-  def update
-    reminder = Reminder.find(params.expect(:id))
-    reminder.update(reminder_params)
-    redirect_to reminders_path, status: :see_other
-  end
-
-  private
-
-  def reminder_params
-    params.expect(reminder: [ :title ])
-  end
+def toggle_ignore
+  @entry = current_user.entries.find(params[:id])
+  @entry.update(ignored_at: Time.current)
 end
 ```
 
-<div class="text-xs opacity-60 text-center">app/controllers/reminders_controller.rb</div>
-
-::right::
-
-<div class="mt-14" />
-
-```erb
-<% @reminders.each do |reminder| %>
-  <%= turbo_frame_tag dom_id(reminder) do %>
-    <%= link_to edit_reminder_path(reminder) do %>
-      <%= reminder.title %>
-    <% end %>
-  <% end %>
-<% end %>
-```
-
-<div class="text-xs opacity-60 text-center">app/views/reminders/index.html.erb</div>
+</CodeCaption>
 
 <br>
 
+<CodeCaption caption="app/views/entries/toggle_ignore.turbo_stream.erb">
+
 ```erb
-<%= turbo_frame_tag dom_id(@reminder) do %>
-  <%= render "form", reminder: @reminder %>
-  <%= form_with(model: @reminder) do |form| %>
-    <%= form.text_field :title %>
-    <%= form.submit %>
-  <% end %>
-<% end %>
+<%= turbo_stream.remove dom_id(@entry, :card) %>
 ```
 
-<div class="text-xs opacity-60 text-center">app/views/reminders/edit.html.erb</div>
-
----
-layout: two-cols
----
-
-# Hotwire
-
-## Turbo Streams
-
-<br>
-
-- Modify any part of the page
-- More control, more code, more complexity
+</CodeCaption>
 
 ::right::
 
@@ -278,104 +249,46 @@ layout: two-cols
 
 ---
 layout: two-cols
-class: gap-4 text-xs
+class: text-xs
 ---
 
-# Hotwire — Turbo Streams
+# Stimulus
 
-```ruby
-class RemindersController < ApplicationController
-  def destroy
-    reminder = Reminder.find(params.expect(:id))
-    reminder.destroy!
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.remove(reminder)
-      end
-    end
-  end
-end
-```
-
-<div class="text-xs opacity-60 text-center">app/controllers/reminders_controller.rb</div>
-
-::right::
-
-<div class="mt-14" />
-
-```erb
-<% @reminders.each do |reminder| %>
-  <%= turbo_frame_tag dom_id(reminder) do %>
-    <%= button_to reminder_path(reminder), method: :delete do %>
-      <svg ...>
-      </svg>
-    <% end %>
-  <% end %>
-<% end %>
-```
-
-<div class="text-xs opacity-60 text-center">app/views/reminders/index.html.erb</div>
-
----
-layout: two-cols
----
-
-# Hotwire
-
-## Stimulus
-
-<br>
-
-- Most control
-- Custom JavaScript
-- jQuery with structure
-
-::right::
-
-<DemoVideo src="/videos/stimulus-demo.mp4" maxH="max-h-105" />
-
----
-layout: two-cols
-class: gap-4 text-xs
----
-
-# Hotwire — Stimulus
+<CodeCaption caption="app/javascript/controllers/toast_controller.js">
 
 ```js
-export default class extends Controller {
-  static targets = ["input", "submitButton"]
+import { Controller } from "@hotwired/stimulus"
 
-  onInput() {
-    if (this.inputTarget.value.length > 0) {
-      this.submitButtonTarget.disabled = false
-    } else {
-      this.submitButtonTarget.disabled = true
-    }
+export default class extends Controller {
+  connect() {
+    this.timeout = setTimeout(() => {
+      this.element.remove()
+    }, 5000)
+  }
+
+  disconnect() {
+    clearTimeout(this.timeout)
   }
 }
 ```
 
-<div class="text-xs opacity-60 text-center">app/javascript/controllers/savable_controller.js</div>
+</CodeCaption>
+
+<br>
+
+<CodeCaption caption="app/views/shared/_flash_toasts.html.erb">
+
+```erb
+<div class="toast" data-controller="toast">
+  <h2><%= flash[:notice] %></h2>
+</div>
+```
+
+</CodeCaption>
 
 ::right::
 
-<div class="mt-14" />
-
-```erb
-<%= form_with(model: reminder,
-              data: { controller: "savable" }) do |form| %>
-  <%= form.text_field :title,
-        data: { savable_target: "input",
-                action: "savable#onInput" } %>
-  <%= form.button type: "submit",
-        disabled: reminder.new_record?,
-        data: { savable_target: "submitButton" } do %>
-    <%= reminder.new_record? ? "Add" : "Update" %>
-  <% end %>
-<% end %>
-```
-
-<div class="text-xs opacity-60 text-center">app/views/reminders/_form.html.erb</div>
+<DemoVideo src="/videos/stimulus-demo.mp4" maxH="max-h-105" />
 
 ---
 layout: statement
