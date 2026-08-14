@@ -25,8 +25,13 @@ there rather than inventing sample code.
 ## Deployment
 
 - The deck deploys to Cloudflare Pages (build `npm run build`, output `dist`,
-  Node pinned via `.node-version`). `public/_redirects` provides the SPA
-  history-mode fallback.
+  Node pinned via `.node-version`). The deck uses hash routing
+  (`routerMode: hash` in the `slides.md` headmatter), so every URL resolves to
+  `index.html` client-side and no server rewrite is needed.
+- `public/_redirects` is intentionally comment-only. `slidev build` otherwise
+  auto-generates a `/*  /index.html  200` rule (it only writes one if the file
+  is absent), which Cloudflare Pages rejects as an infinite loop. Keep the file
+  present and don't add rewrite rules to it.
 - Cloudflare installs with `npm ci`, which hard-fails if `package-lock.json`
   is out of sync with `package.json`. Whenever you change deps, run
   `npm install` and commit the regenerated `package-lock.json` in the same
