@@ -2,6 +2,10 @@
 
 See [README.md](README.md) for what this deck is, commands, and repo structure.
 
+The demo app the code samples come from is the RSS reader, at
+`~/Code/rss-reader/rss-reader-rails` on Mike's machine. Pull real code from
+there rather than inventing sample code.
+
 ## Conventions
 
 - Default Slidev theme only. Use built-in layouts (`cover`, `section`,

@@ -13,14 +13,17 @@ defineProps({
 </script>
 
 <template>
-  <!-- muted is static: required for autoplay and Vue won't bind it as a prop -->
-  <video
-    :src="src"
-    :autoplay="autoplay"
-    :controls="!autoplay"
-    muted
-    loop
-    playsinline
-    :class="[maxH, 'mx-auto rounded-lg shadow-lg']"
-  />
+  <!-- Fills the two-cols right column and centers the video vertically. -->
+  <div class="h-full flex items-center justify-center">
+    <!-- muted is static: required for autoplay and Vue won't bind it as a prop -->
+    <video
+      :src="src"
+      :autoplay="autoplay"
+      :controls="!autoplay"
+      muted
+      loop
+      playsinline
+      :class="[maxH, 'mx-auto rounded-lg shadow-lg']"
+    />
+  </div>
 </template>
