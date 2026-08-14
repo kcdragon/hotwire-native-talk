@@ -577,10 +577,9 @@ class MainActivity : HotwireActivity() {
 
 ## Alternative
 
-<div class="flex gap-8 items-center justify-center mt-4">
-  <img src="/images/setup-alternative-1.png" class="max-h-80 rounded shadow-lg" />
-  <img src="/images/setup-alternative-2.png" class="max-h-80 rounded shadow-lg" />
-</div>
+<img v-drag="[28,210,450,235]" src="/images/setup-alternative-1.png" class="rounded shadow-lg" />
+
+<img v-drag="[502,210,450,233]" src="/images/setup-alternative-2.png" class="rounded shadow-lg" />
 
 ---
 layout: section
