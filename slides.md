@@ -165,7 +165,7 @@ layout: two-cols
 
 ::right::
 
-<video src="/videos/turbo-frames-demo.mp4" controls muted loop class="max-h-105 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/turbo-frames-demo.mp4" maxH="max-h-105" />
 
 ---
 layout: two-cols
@@ -245,7 +245,7 @@ layout: two-cols
 
 ::right::
 
-<video src="/videos/turbo-streams-demo.mp4" controls muted loop class="max-h-105 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/turbo-streams-demo.mp4" maxH="max-h-105" />
 
 ---
 layout: two-cols
@@ -303,7 +303,7 @@ layout: two-cols
 
 ::right::
 
-<video src="/videos/stimulus-demo.mp4" controls muted loop class="max-h-105 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/stimulus-demo.mp4" maxH="max-h-105" />
 
 ---
 layout: two-cols
@@ -590,15 +590,26 @@ layout: section
 
 ---
 layout: two-cols
+class: gap-4
 ---
 
 # Screen Navigation
 
 ## Push and Pop
 
+<br>
+
+<CodeCaption caption="app/views/feeds/_card.html.erb">
+
+```erb
+<%= link_to "View", feed_path(feed) %>
+```
+
+</CodeCaption>
+
 ::right::
 
-<video src="/videos/nav-push-pop.mp4" controls muted loop class="max-h-110 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/nav-push-pop.mp4" />
 
 <!--
 Links will push a new screen onto the stack and use an animation
@@ -606,15 +617,38 @@ Links will push a new screen onto the stack and use an animation
 
 ---
 layout: two-cols
+class: gap-4 text-xs
 ---
 
 # Screen Navigation
 
 ## Replace
 
+<br>
+
+<CodeCaption caption="app/views/users/edit.html.erb">
+
+```erb
+<%= form_with model: @user do |form| %>
+  <div class="grid gap-2">
+    <%= form.label :email_address, "New Email Address" %>
+    <%= form.email_field :email_address %>
+  </div>
+
+  <div class="grid gap-2">
+    <%= form.label :current_password %>
+    <%= form.password_field :current_password %>
+  </div>
+
+  <%= form.submit "Update Email" %>
+<% end %>
+```
+
+</CodeCaption>
+
 ::right::
 
-<video src="/videos/nav-replace.mp4" controls muted loop class="max-h-110 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/nav-replace.mp4" />
 
 <!--
 Navigating to the same screen will replace the screen instead of pushing a new screen
@@ -622,15 +656,29 @@ Navigating to the same screen will replace the screen instead of pushing a new s
 
 ---
 layout: two-cols
+class: gap-4 text-xs
 ---
 
 # Screen Navigation
 
 ## External Links
 
+<br>
+
+<CodeCaption caption="app/views/entries/_card.html.erb">
+
+```erb
+<%= link_to entry.title,
+    entry.url,
+    target: "_blank",
+    rel: "noopener noreferrer" %>
+```
+
+</CodeCaption>
+
 ::right::
 
-<video src="/videos/nav-external-links.mp4" controls muted loop class="max-h-110 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/nav-external-links.mp4" />
 
 ---
 layout: section
@@ -728,7 +776,7 @@ class: gap-4
 
 ::right::
 
-<video src="/videos/pathconfig-basic.mp4" controls muted loop class="max-h-110 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/pathconfig-basic.mp4" />
 
 <!--
 https://native.hotwired.dev/reference/navigation
@@ -765,7 +813,7 @@ class: gap-4
 
 ::right::
 
-<video src="/videos/pathconfig-modal.mp4" controls muted loop class="max-h-110 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/pathconfig-modal.mp4" />
 
 <!--
 https://native.hotwired.dev/reference/navigation
@@ -800,7 +848,7 @@ class: gap-4
 
 ::right::
 
-<video src="/videos/pathconfig-native-screen.mp4" controls muted loop class="max-h-110 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/pathconfig-native-screen.mp4" />
 
 <!--
 https://native.hotwired.dev/reference/navigation
@@ -929,7 +977,7 @@ layout: two-cols
 
 ::right::
 
-<video src="/videos/tabbar-ios.mp4" controls muted loop class="max-h-110 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/tabbar-ios.mp4" />
 
 ---
 
@@ -1039,7 +1087,7 @@ layout: two-cols
 
 ::right::
 
-<video src="/videos/tabbar-android.mp4" controls muted loop class="max-h-110 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/tabbar-android.mp4" />
 
 ---
 layout: two-cols
@@ -1196,7 +1244,7 @@ layout: two-cols
 
 ::right::
 
-<video src="/videos/calendar-switcher-web.mp4" controls muted loop class="max-h-110 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/calendar-switcher-web.mp4" />
 
 ---
 layout: two-cols
@@ -1208,7 +1256,7 @@ layout: two-cols
 
 ::right::
 
-<video src="/videos/calendar-switcher-html-dialog.mp4" controls muted loop class="max-h-110 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/calendar-switcher-html-dialog.mp4" />
 
 ---
 layout: two-cols
@@ -1220,7 +1268,7 @@ layout: two-cols
 
 ::right::
 
-<video src="/videos/calendar-switcher-native-modal.mp4" controls muted loop class="max-h-110 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/calendar-switcher-native-modal.mp4" />
 
 ---
 layout: two-cols
@@ -1552,7 +1600,7 @@ layout: two-cols
 
 ::right::
 
-<video src="/videos/bridge-button-demo.mp4" controls muted loop class="max-h-110 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/bridge-button-demo.mp4" />
 
 ---
 layout: two-cols
@@ -1566,7 +1614,7 @@ layout: two-cols
 
 ::right::
 
-<video src="/videos/bridge-menu-demo.mp4" controls muted loop class="max-h-110 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/bridge-menu-demo.mp4" />
 
 ---
 
@@ -1619,7 +1667,7 @@ layout: two-cols
 
 ::right::
 
-<video src="/videos/add-to-calendar-ios.mp4" controls muted loop class="max-h-110 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/add-to-calendar-ios.mp4" />
 
 ---
 class: text-xs
@@ -1795,7 +1843,7 @@ layout: two-cols
 
 ::right::
 
-<video src="/videos/add-to-calendar-android.mp4" controls muted loop class="max-h-110 mx-auto rounded-lg shadow-lg" />
+<DemoVideo src="/videos/add-to-calendar-android.mp4" />
 
 ---
 
