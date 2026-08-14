@@ -22,6 +22,16 @@ there rather than inventing sample code.
 - Full-bleed screenshots use `layout: image` with `backgroundSize: contain`.
 - Presenter notes are HTML comments (`<!-- … -->`) at the end of a slide.
 
+## Deployment
+
+- The deck deploys to Cloudflare Pages (build `npm run build`, output `dist`,
+  Node pinned via `.node-version`). `public/_redirects` provides the SPA
+  history-mode fallback.
+- Cloudflare installs with `npm ci`, which hard-fails if `package-lock.json`
+  is out of sync with `package.json`. Whenever you change deps, run
+  `npm install` and commit the regenerated `package-lock.json` in the same
+  change — otherwise the build dies at install with `npm error code EUSAGE`.
+
 ## Notes
 
 - The repeated "Implementation steps" slides are intentional — they re-anchor
