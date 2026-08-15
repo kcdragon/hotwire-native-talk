@@ -1088,26 +1088,16 @@ extension SceneController: UIWindowSceneDelegate {
 
 ---
 layout: two-cols
+class: gap-4
 ---
 
 # Native Tab Bar
 
 ## Android
 
-::right::
+<br />
 
-<DemoVideo src="/videos/tabbar-android.mp4" />
-
----
-layout: two-cols
-class: gap-4 text-sm
----
-
-# Native Tab Bar
-
-## Android
-
-::right::
+<CodeCaption caption="Tabs.kt">
 
 ```kotlin
 private val feeds = HotwireBottomTab(
@@ -1128,20 +1118,28 @@ val mainTabs = listOf(
 )
 ```
 
-<div class="text-xs opacity-60 text-center">Tabs.kt</div>
+</CodeCaption>
+
+::right::
+
+<DemoVideo src="/videos/tabbar-android.mp4" />
 
 ---
-class: text-xs
+layout: two-cols
+class: gap-4
 ---
 
-# Native Tab Bar — Android
+# Native Tab Bar
+
+## Android
+
+<br />
 
 <CodeCaption caption="activity_main.xml" size="xs">
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    ...>
+<androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.fragment.app.FragmentContainerView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -1164,21 +1162,32 @@ class: text-xs
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
 </CodeCaption>
 
+::right::
+
+<DemoVideo src="/videos/tabbar-android.mp4" />
+
 ---
-class: text-sm
+layout: two-cols
+class: gap-4
 ---
 
-# Native Tab Bar — Android
+# Native Tab Bar
+
+## Android
+
+<br />
+
+<CodeCaption caption="MainActivity.kt" size="xs">
 
 ```kotlin
 class MainActivity : HotwireActivity() {
-    private lateinit var bottomNavigationController: HotwireBottomNavigationController
+    private lateinit var
+      bottomNavigationController: HotwireBottomNavigationController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         ...
@@ -1187,14 +1196,22 @@ class MainActivity : HotwireActivity() {
     }
 
     private fun initializeBottomTabs() {
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
-        bottomNavigationController = HotwireBottomNavigationController(this, bottomNavigationView)
+        val bottomNavigationView = findViewById<BottomNavigationView>(
+            R.id.bottom_nav
+        )
+        bottomNavigationController = HotwireBottomNavigationController(
+            this, bottomNavigationView
+        )
         bottomNavigationController.load(mainTabs, 0)
     }
 }
 ```
 
-<div class="text-xs opacity-60 text-center">MainActivity.kt</div>
+</CodeCaption>
+
+::right::
+
+<DemoVideo src="/videos/tabbar-android.mp4" />
 
 ---
 layout: two-cols
