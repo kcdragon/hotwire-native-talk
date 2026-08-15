@@ -1656,16 +1656,11 @@ layout: two-cols
 <img src="/images/request-permissions.png" class="max-h-110 mx-auto rounded shadow-lg" />
 
 ---
-layout: two-cols
+layout: image
+image: /images/masilotti-library.png
+backgroundSize: contain
+title: Joe Masilotti's Bridge Components library
 ---
-
-# Bridge Components
-
-## Joe Masilotti's library
-
-::right::
-
-<img src="/images/masilotti-library.png" class="max-h-110 mx-auto rounded shadow-lg" />
 
 ---
 layout: section
