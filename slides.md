@@ -774,67 +774,6 @@ layout: section
 # Path Configuration
 
 ---
-
-# Path Configuration
-
-<br>
-
-- Should the path use the default view or a modal?
-- Should the path use a Rails view or a native view?
-
----
-layout: two-cols
-class: gap-4
----
-
-# Path Configuration
-
-## Format
-
-<br>
-
-- JSON
-- Stored in native app, or
-- Fetched from Rails app
-
-::right::
-
-<div class="text-xs">
-
-```json
-{
-  "rules": [
-    {
-      "patterns": [
-        ".*"
-      ],
-      "properties": {
-        "context": "default",
-        "pull_to_refresh_enabled": true
-      }
-    },
-    {
-      "patterns": [
-        "/new$",
-        "/edit$"
-      ],
-      "properties": {
-        "context": "modal",
-        "pull_to_refresh_enabled": false
-      }
-    }
-  ]
-}
-```
-
-</div>
-
-<!--
-https://native.hotwired.dev/reference/navigation
-https://native.hotwired.dev/reference/path-configuration
--->
-
----
 layout: two-cols
 class: gap-4
 ---
@@ -918,15 +857,18 @@ class: gap-4
 
 <br>
 
-```json
+```ruby
 {
-  "rules": [
+  rules: [
     {
-      "patterns": [
-        "/numbers$"
+      patterns: [
+        "#{entries_path}$"
       ],
-      "properties": {
-        "view_controller": "numbers"
+      properties: {
+        view_controller: "entries",
+        presentation: "replace_root",
+        animated: false,
+        pull_to_refresh_enabled: false
       }
     }
   ]
