@@ -52,7 +52,7 @@ class: text-center
 </div>
 
 <!--
-I'm from Philadelphia — right here on the East Coast. Which brings me to my next point...
+I live in Philadelphia on the eastern coast of the United States which is in between New York City and Washington DC.
 -->
 
 ---
@@ -62,12 +62,20 @@ backgroundSize: cover
 title: It's Always Sunny
 ---
 
+<!--
+You may know about Philadelphia from this group of friends. This is the cast of "It's Always Sunny in Philadelphia".
+-->
+
 ---
 layout: image
 image: /images/rocky-italian-market.jpg
 backgroundSize: cover
 title: Rocky running through the Italian Market
 ---
+
+<!--
+Or you may know Philadelphia from the movie "Rocky". This scene was filmed about a 10 minute walk from my house. The neighborhood still looks pretty much the same even though this is from 50 years ago.
+-->
 
 ---
 layout: inline-image
