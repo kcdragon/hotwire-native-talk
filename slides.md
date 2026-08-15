@@ -153,27 +153,40 @@ title: Hotwire libraries
 -->
 
 ---
-
-# Turbo
-
-<br>
-
-- Requires JavaScript but…
-- No need to write your own JavaScript!
-- Client-side behavior determined by server-side responses
-
+layout: two-cols
+class: text-xs
 ---
 
 # Turbo Drive
 
 <br>
 
-- Turbolinks successor
-- Works "out of the box"
-- Performs requests as XHR to prevent page reload
+<CodeCaption caption="app/javascript/application.js">
+
+```js
+import "@hotwired/turbo-rails"
+```
+
+</CodeCaption>
+
+<br>
+
+<CodeCaption caption="app/views/feeds/_card.html.erb">
+
+```erb
+<%= link_to "View", feed_path(feed) %>
+```
+
+</CodeCaption>
+
+::right::
+
+<DemoVideo src="/videos/nav-push-pop.mp4" maxH="max-h-105" />
 
 <!--
 "Turbo is made up of three parts. Turbo Drive, Turbo Frames and Turbo Streams…"
+No data-turbo attributes, no frame, no special controller — one import makes
+that plain link_to a fetch+swap navigation with no full reload.
 -->
 
 ---
@@ -182,6 +195,8 @@ class: text-xs
 ---
 
 # Turbo Frames
+
+<br>
 
 <CodeCaption caption="app/views/feeds/_title.html.erb">
 
@@ -223,6 +238,8 @@ class: text-xs
 
 # Turbo Streams
 
+<br>
+
 <CodeCaption caption="app/controllers/entries_controller.rb">
 
 ```ruby
@@ -254,6 +271,8 @@ class: text-xs
 ---
 
 # Stimulus
+
+<br>
 
 <CodeCaption caption="app/javascript/controllers/toast_controller.js">
 
