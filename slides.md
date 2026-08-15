@@ -1011,18 +1011,6 @@ layout: two-cols
 <DemoVideo src="/videos/tabbar-ios.mp4" />
 
 ---
-
-# Native Tab Bar
-
-## Implementation steps
-
-<br>
-
-- Add native tab bar to iOS code base
-- Add native tab bar to Android code base
-- Hide web-based navigation in Rails code base
-
----
 layout: two-cols
 class: gap-4 text-sm
 ---
@@ -1031,11 +1019,9 @@ class: gap-4 text-sm
 
 ## iOS
 
-::right::
+<br />
 
 ```swift
-let baseUrl = URL(string: "http://localhost:3000")!
-
 extension HotwireTab {
     static let all: [HotwireTab] = {
         var tabs: [HotwireTab] = [
@@ -1058,6 +1044,10 @@ extension HotwireTab {
 
 <div class="text-xs opacity-60 text-center">Tabs.swift</div>
 
+::right::
+
+<DemoVideo src="/videos/tabbar-ios.mp4" />
+
 ---
 layout: two-cols
 class: gap-4 text-sm
@@ -1067,13 +1057,7 @@ class: gap-4 text-sm
 
 ## iOS
 
-<br>
-
-- Title
-- Image
-- URL
-
-::right::
+<br />
 
 <CodeCaption caption="SceneController.swift" size="xs">
 
@@ -1098,17 +1082,9 @@ extension SceneController: UIWindowSceneDelegate {
 
 </CodeCaption>
 
----
+::right::
 
-# Native Tab Bar
-
-## Implementation steps
-
-<br>
-
-- Add native tab bar to iOS code base
-- Add native tab bar to Android code base
-- Hide web-based navigation in Rails code base
+<DemoVideo src="/videos/tabbar-ios.mp4" />
 
 ---
 layout: two-cols
@@ -1219,18 +1195,6 @@ class MainActivity : HotwireActivity() {
 ```
 
 <div class="text-xs opacity-60 text-center">MainActivity.kt</div>
-
----
-
-# Native Tab Bar
-
-## Implementation steps
-
-<br>
-
-- Add native tab bar to iOS code base
-- Add native tab bar to Android code base
-- Hide web-based navigation in Rails code base
 
 ---
 layout: two-cols
