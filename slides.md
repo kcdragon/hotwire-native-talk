@@ -2090,11 +2090,13 @@ class: text-center
 
 # Thanks!
 
-<div class="flex gap-12 items-center justify-center mt-8">
-  <img src="/images/calendar-vision-app.png" class="max-h-60 rounded shadow-lg" />
-  <img src="/images/qr-code.png" class="max-h-60 rounded shadow-lg" />
+<div class="flex gap-12 items-start justify-center mt-8">
+  <div class="flex flex-col items-center gap-2">
+    <img src="/images/calendar-vision-app.png" class="max-h-60 rounded shadow-lg" />
+    <div class="text-sm opacity-80">Calendar Vision app · calendarvision.app</div>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <img src="/images/qr-code.png" class="max-h-60 rounded shadow-lg" />
+    <div class="text-sm opacity-80">Find me online · mikedalton.co/socials</div>
+  </div>
 </div>
-
-<br>
-
-[https://calendarvision.app/](https://calendarvision.app/)
