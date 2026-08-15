@@ -78,14 +78,6 @@ imageClass: w-90
 ---
 
 ---
-layout: inline-image
-text: Building Calendar Vision
-image: /images/calendar-vision-logo.png
-position: before
-imageClass: w-60 rounded-2xl
----
-
----
 layout: image
 image: /images/triumph-site-1.png
 backgroundSize: contain
@@ -116,6 +108,14 @@ layout: image
 image: /images/triumph-site-3.png
 backgroundSize: contain
 title: Triumph website (triumph.io)
+---
+
+---
+layout: inline-image
+text: Building Calendar Vision
+image: /images/calendar-vision-logo.png
+position: before
+imageClass: w-60 rounded-2xl
 ---
 
 ---
