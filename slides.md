@@ -459,11 +459,21 @@ layout: section
 
 # Project Setup
 
+<!--
+How do you get started with a Hotwire Native project?
+-->
+
 ---
 layout: statement
 ---
 
-# No generator like `rails new`
+# Start with a Hotwire Rails app
+
+---
+layout: statement
+---
+
+# No generator like `rails new` for the mobile app
 
 ---
 layout: statement
@@ -491,6 +501,10 @@ image: /images/setup-ios-package-dependency.png
 backgroundSize: 90%
 ---
 
+<!--
+To get started with iOS, you can use the Xcode new project wizard.
+-->
+
 # Project Setup
 
 ## iOS
@@ -498,6 +512,10 @@ backgroundSize: 90%
 <br>
 
 - Add `hotwire-native-ios` package dependency
+
+<!--
+There's a Swift package called `hotwire-native-ios` and that's what you'll use to turn your native app into a Hotwire Native app
+-->
 
 ---
 layout: two-cols
@@ -546,6 +564,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 </VCenter>
 
+<!--
+The only change you'll need to make is to replace the entry point of the app with a small bit of code that tells Hotwire Native the starting location of your web app.
+-->
+
 ---
 layout: image-right
 image: /images/setup-android-new-project.png
@@ -559,6 +581,10 @@ backgroundSize: 90%
 <br>
 
 - Use the Android Studio New Project Wizard
+
+<!--
+Android has a similar new project wizard.
+-->
 
 ---
 layout: two-cols
@@ -591,6 +617,10 @@ dependencies {
 
 </VCenter>
 
+<!--
+Android has a `hotwire-native-android` Kotlin library that needs to be added to your dependencies.
+-->
+
 ---
 layout: two-cols
 ---
@@ -618,6 +648,10 @@ layout: two-cols
 </CodeCaption>
 
 </VCenter>
+
+<!--
+Android has requires a little more than iOS to get started. Start by asking for the internet permission for your app. This tells Android that you need to be able to call your web app from within your native app.
+-->
 
 ---
 layout: two-cols
@@ -669,6 +703,10 @@ class MainActivity : HotwireActivity() {
 
 </VCenter>
 
+<!--
+Similar to iOS, the entry point for the Kotlin app needs to be updated with the starting location URL of your web app.
+-->
+
 ---
 layout: two-cols
 ---
@@ -703,6 +741,10 @@ layout: two-cols
 
 </VCenter>
 
+<!--
+XML still seems pretty popular in the Java world so you've also got a bit of XML to add.
+-->
+
 ---
 
 # Project Setup
@@ -712,6 +754,10 @@ layout: two-cols
 <img v-drag="[28,210,450,235]" src="/images/setup-alternative-1.png" class="rounded shadow-lg" />
 
 <img v-drag="[502,210,450,233]" src="/images/setup-alternative-2.png" class="rounded shadow-lg" />
+
+<!--
+Alternatively, you can download these examples apps hosted in the official libraries and modify them instead of starting native projects from scratch.
+-->
 
 ---
 layout: section
