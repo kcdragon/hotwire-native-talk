@@ -78,6 +78,17 @@ Or you may know Philadelphia from the movie "Rocky". This scene was filmed about
 -->
 
 ---
+layout: image
+image: /images/cheesesteak.jpg
+backgroundSize: cover
+title: Philly cheesesteak
+---
+
+<!--
+Or you may know Philadelphia from its most popular food, the Philly Cheese Steak.
+-->
+
+---
 layout: inline-image
 text: I work at
 image: /images/triumph-logo.svg
