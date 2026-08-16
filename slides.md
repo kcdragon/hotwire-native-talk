@@ -417,6 +417,18 @@ export default class extends Controller {
 
 <DemoVideo src="/videos/stimulus-demo.mp4" maxH="max-h-105" />
 
+<!--
+When Turbo isn't enough and you need some custom Javascript, you can use Stimulus.
+
+I like to think of Stimulus as a more structured version of jQuery.
+
+For example, if we want to show the user a toast message and have it disappear after five seconds, Stimulus is a great choice.
+
+We set the data-controller attribute on the element which tells Stimulus to connect to that controller.
+
+Then we set a timeout that removes the element after five seconds have passed.
+-->
+
 ---
 layout: statement
 ---
