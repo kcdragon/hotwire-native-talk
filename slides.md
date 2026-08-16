@@ -85,6 +85,10 @@ position: after
 imageClass: w-90
 ---
 
+<!--
+I work at a US-based company called Triumph.
+-->
+
 ---
 layout: image
 image: /images/triumph-site-1.png
@@ -126,6 +130,10 @@ position: before
 imageClass: w-60 rounded-2xl
 ---
 
+<!--
+And in my free time, I like working on side projects like Calendar Vision.
+-->
+
 ---
 layout: image-right
 image: /images/hotwire-37signals.png
@@ -137,6 +145,14 @@ image: /images/hotwire-37signals.png
 - Default front end "framework" in Rails 7+
 - HTML (not JSON) "over the wire"
 
+<!--
+Before we get into Hotwire Native, I want to talk a little bit about Hotwire itself.
+
+Hotwire is the default front end framework in Rails since Rails 7. It was created by 37signals.
+
+Hotwire stands for "HTML over the wire"
+-->
+
 ---
 layout: quote
 ---
@@ -144,6 +160,10 @@ layout: quote
 # "Hotwire is an alternative approach to building modern web applications without using much JavaScript by sending HTML instead of JSON over the wire."
 
 [https://hotwired.dev/](https://hotwired.dev/)
+
+<!--
+This is a quote from the Hotwire website and I think it does a good job of summarizing the framework.
+-->
 
 ---
 layout: center
@@ -157,7 +177,7 @@ title: Hotwire libraries
 <img v-drag="[685,254,218,45]" src="/images/native.svg" />
 
 <!--
-"Hotwire is made up of 3 parts…"
+Hotwire is made up of 3 parts: Turbo, Stimulus and Hotwire Native
 -->
 
 ---
@@ -192,9 +212,7 @@ import "@hotwired/turbo-rails"
 <DemoVideo src="/videos/nav-push-pop.mp4" maxH="max-h-105" />
 
 <!--
-"Turbo is made up of three parts. Turbo Drive, Turbo Frames and Turbo Streams…"
-No data-turbo attributes, no frame, no special controller — one import makes
-that plain link_to a fetch+swap navigation with no full reload.
+You get Turbo Drive for free just by using the framework. There's nothing additional you need to do. Turbo Drive works behind the scene's by intercepting link clicks and form submissions and instead of refreshing the page it will perform the requests in the background and swap in the response it receives from the server.
 -->
 
 ---
@@ -239,6 +257,18 @@ class: text-xs
 
 <DemoVideo src="/videos/turbo-frames-demo.mp4" maxH="max-h-105" />
 
+<!--
+Turbo Frames allow you to update a specific part of the page without changing the entire page.
+
+In this example, we allow the user to edit the title of a feed by clicking on the title.
+Clicking on the title performs a request that loads a form with a textbox inline.
+Changing the title and clicking save performs a request that updates the title and shows the new title.
+
+Importantly, only what's inside the turbo frame changes on each request.
+
+This works because the turbo frame has the same ID across requests.
+-->
+
 ---
 layout: two-cols
 class: text-xs
@@ -272,6 +302,12 @@ end
 ::right::
 
 <DemoVideo src="/videos/turbo-streams-demo.mp4" maxH="max-h-105" />
+
+<!--
+Turbo Streams allows updating many different parts of the page.
+
+For example, if the user clicks the Ignore button, we can respond with a turbo stream request that says to remove the entire entry card after we set the entry to be ignored in the database.
+-->
 
 ---
 layout: two-cols
