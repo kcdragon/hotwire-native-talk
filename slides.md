@@ -206,6 +206,40 @@ Hotwire is made up of 3 parts: Turbo, Stimulus and Hotwire Native
 -->
 
 ---
+layout: center
+title: The three parts of Turbo
+---
+
+<h1 class="text-center">Turbo</h1>
+
+<div class="mt-12 flex items-start justify-center gap-14">
+
+<div v-for="part in [
+  { name: 'Turbo Drive', blurb: 'Swaps the whole page', cells: [1,1,1,1] },
+  { name: 'Turbo Frames', blurb: 'Swaps one region', cells: [0,1,0,0] },
+  { name: 'Turbo Streams', blurb: 'Swaps many regions', cells: [1,0,1,0] },
+]" :key="part.name" class="flex flex-col items-center gap-3">
+
+  <div class="w-44 rounded-lg border-2 border-gray-300 dark:border-gray-600 p-2 flex flex-col gap-2">
+    <div
+      v-for="(on, i) in part.cells" :key="i"
+      class="h-8 rounded transition-colors"
+      :class="on ? 'bg-[#5CD8E5]' : 'bg-gray-200 dark:bg-gray-700'"
+    />
+  </div>
+
+  <div class="text-lg font-semibold">{{ part.name }}</div>
+  <div class="text-sm opacity-60 -mt-2">{{ part.blurb }}</div>
+
+</div>
+
+</div>
+
+<!--
+Turbo is made up of three parts. Turbo Drive, Turbo Frames and Turbo Streams. A good way to think about them is that Turbo Drive modifies the entire page. Turbo Frames modifies a single part of the page and Turbo Streams modified many different parts of the page. 
+-->
+
+---
 layout: two-cols
 class: text-xs
 ---
