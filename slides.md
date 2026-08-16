@@ -146,6 +146,20 @@ And in my free time, I like working on side projects like Calendar Vision.
 -->
 
 ---
+title: Calendar Vision screenshots
+---
+
+<img v-drag="[86,46,213,460]" src="/images/cv-capture.webp" class="h-full w-full object-contain" alt="Capturing a flyer with the camera" />
+
+<img v-drag="[384,46,213,460]" src="/images/cv-extracted.webp" class="h-full w-full object-contain" alt="Extracted event details" />
+
+<img v-drag="[682,46,213,460]" src="/images/cv-adding.webp" class="h-full w-full object-contain" alt="Adding the event to a calendar" />
+
+<!--
+Calendar Vision is a Hotwire Native app that allows people to take a picture of an image and easily extract events from that photo to add to your favorite calendar app.
+-->
+
+---
 layout: image-right
 image: /images/hotwire-37signals.png
 ---
