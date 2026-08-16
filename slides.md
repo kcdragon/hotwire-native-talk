@@ -268,10 +268,14 @@ import "@hotwired/turbo-rails"
 
 ::right::
 
-<DemoVideo src="/videos/nav-push-pop.mp4" maxH="max-h-105" />
+<DemoVideo src="/videos/turbo-drive-demo.mp4" maxH="max-h-105" />
 
 <!--
-You get Turbo Drive for free just by using the framework. There's nothing additional you need to do. Turbo Drive works behind the scene's by intercepting link clicks and form submissions and instead of refreshing the page it will perform the requests in the background and swap in the response it receives from the server.
+You get Turbo Drive for free just by using the framework.
+
+There's nothing additional you need to do. Turbo Drive works behind the scene's by intercepting link clicks and form submissions and instead of refreshing the page it will perform the requests in the background and swap in the response it receives from the server.
+
+Turbo Drive will also pre-fetch links that are hovered over so the page loads faster for the user clicking on the link.
 -->
 
 ---
