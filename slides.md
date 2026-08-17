@@ -364,7 +364,16 @@ end
 
 ::right::
 
+<div class="h-full relative" style="z-index: 1">
+
 <DemoVideo src="/videos/turbo-streams-demo.mp4" maxH="max-h-105" />
+
+</div>
+
+<div class="absolute inset-0 pointer-events-none" style="z-index: 200">
+  <FancyArrow from="(866,52)" to="(729,110)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="0.25" seed="11" />
+  <div v-drag="[792,18,150,24]" class="text-sm font-bold text-red-600 whitespace-nowrap text-right">unread count</div>
+</div>
 
 <!--
 Turbo Streams allows updating many different parts of the page.
