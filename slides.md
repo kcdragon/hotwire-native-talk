@@ -507,6 +507,16 @@ layout: statement
 </div>
 
 ---
+layout: image
+image: /images/hotwire-native-history.png
+backgroundSize: contain
+title: Hotwire Native history
+---
+
+<!--
+-->
+
+---
 layout: image-right
 image: /images/hotwire-native-history.png
 ---
