@@ -2168,6 +2168,675 @@ class CalendarVisionApplication : Application() {
 layout: section
 ---
 
+# OAuth
+
+---
+layout: two-cols
+class: gap-4
+---
+
+# OAuth
+
+## The problem
+
+<br>
+
+- Apple won't run OAuth inside an embedded web view
+- The native app can't sign the web view in directly
+- Run the flow outside the app, then hand the session back
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
+    <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
+    <div class="text-sm opacity-80">oauth-sign-in-ios.mp4</div>
+  </div>
+</div>
+
+<!--
+TODO record video: oauth-sign-in-ios.mp4 — full sign in with Apple flow on the iOS app.
+
+OAuth providers refuse to run inside an embedded web view. They can't tell a legitimate app from one that's screen scraping your password, so they block it.
+
+That leaves us with a problem. The OAuth flow has to happen somewhere else, in a real browser. But the thing that needs to end up signed in is our web view.
+
+So the native app runs the flow outside, and then hands the resulting session back.
+-->
+
+---
+layout: center
+class: text-center
+title: Supporting OAuth - Web
+---
+
+<div class="absolute left-14 top-1/2 -translate-y-1/2 text-left">
+  <h1 class="!text-5xl !font-bold !leading-tight !m-0">Supporting<br/>OAuth</h1>
+  <div class="text-3xl font-bold mt-3">Web</div>
+</div>
+
+<div class="ml-64">
+
+```mermaid {scale: 0.5}
+sequenceDiagram
+    actor User
+    participant Browser
+    participant Rails
+    participant Apple
+
+    User->>Browser: click "Sign in with Apple"
+    Browser->>Rails: GET /auth/apple
+    Rails-->>Browser: 302 appleid.apple.com
+    Browser->>Apple: GET /auth/authorize
+    Apple-->>Browser: 200 OK
+    User->>Browser: fill in credentials
+    Browser->>Apple: POST /auth/authorize
+    Apple-->>Browser: 302 back to Rails
+    Browser->>Rails: POST /auth/apple/callback
+    Note over Rails: Authenticate user
+    Rails-->>Browser: 302 /entries
+    Browser->>Rails: GET /entries
+    Rails-->>Browser: 200 OK
+```
+
+</div>
+
+<!--
+On the web, this is the ordinary OAuth dance and there's nothing surprising in it.
+
+The browser bounces to Apple, the user signs in, Apple sends them back to our callback, and we set a session cookie. Done.
+
+I'm showing it first because the native version has to end up in exactly the same place — a session cookie on our domain — it just can't get there the same way.
+-->
+
+---
+layout: center
+class: text-center
+title: Supporting OAuth - Native solution
+---
+
+<div class="absolute left-14 top-1/2 -translate-y-1/2 text-left">
+  <h1 class="!text-5xl !font-bold !leading-tight !m-0">Supporting<br/>OAuth</h1>
+  <div class="text-3xl font-bold mt-3">Native<br/>(Safari)</div>
+</div>
+
+<div class="ml-64">
+
+```mermaid {scale: 0.5}
+sequenceDiagram
+    actor User
+    participant WKWebView
+    participant Safari
+    participant Rails
+    participant Apple
+
+    User->>WKWebView: click "Sign in with Apple"
+    Note over WKWebView: Bridge component<br/>intercepts the tap
+    WKWebView->>Safari: open /auth/apple?platform=native
+    Safari->>Rails: GET /auth/apple
+    Rails-->>Safari: 302 appleid.apple.com
+    Safari->>Apple: GET /auth/authorize
+    User->>Safari: fill in credentials
+    Apple-->>Safari: 302 back to Rails
+    Safari->>Rails: POST /auth/apple/callback
+    Note over Rails: Authenticate user
+    Rails-->>Safari: 302 rssreader://auth-callback?token
+    Safari->>WKWebView: custom URL scheme
+    WKWebView->>Rails: GET /auth/token?token
+    Note over Rails: Redeem token,<br/>set session cookie
+    Rails-->>WKWebView: 302 /hotwire_native/refresh
+```
+
+</div>
+
+<!--
+This is the whole solution in one picture, and it's the slide to point back at.
+
+The bridge component intercepts the tap and opens Safari instead. Safari is a real browser, so Apple is happy.
+
+Rails runs the normal flow there. But at the callback it can't set a cookie that the app's web view would see, because Safari and the web view have completely separate cookie jars. So it hands back a short-lived token on a custom URL scheme.
+
+That wakes the app back up. The app takes the token and loads it in the web view — and that response is what finally sets the session cookie in the right place.
+
+The rest of the section is just these steps in code.
+-->
+
+---
+layout: two-cols
+class: gap-4 text-xs
+---
+
+# OAuth
+
+## Sign in button
+
+<br>
+
+<CodeCaption caption="app/views/shared/_oauth_button.html.erb" size="xs">
+
+```erb {4-9}
+<%= link_to auth_path(platform: "web"),
+  data: {
+    turbo: false,
+    controller: "bridge--sign-in-with-oauth",
+    action: "click->bridge--sign-in-with-oauth#interceptClick",
+    bridge__sign_in_with_oauth_start_path_value:
+      auth_path(platform: "native"),
+    bridge__sign_in_with_oauth_token_auth_path_value:
+      auth_token_path
+  } do %>
+  Sign in with Apple
+<% end %>
+```
+
+</CodeCaption>
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
+    <div class="text-lg font-bold">SCREENSHOT PLACEHOLDER</div>
+    <div class="text-sm opacity-80">oauth-sign-in-button.png</div>
+  </div>
+</div>
+
+<!--
+TODO screenshot: oauth-sign-in-button.png — the sign in page showing the Sign in with Apple button.
+
+This is the same partial on the web and in the app.
+
+On the web, it's just a link. The href points at the normal web OAuth flow and it works like any other link.
+
+In the app, the bridge component connects and intercepts the tap instead. Notice there are two different paths here — the href has platform=web, and the bridge value has platform=native. Same button, and the server finds out which one it's talking to.
+
+turbo: false stops Turbo from grabbing the click first.
+-->
+
+---
+layout: two-cols
+class: gap-4 text-xs
+---
+
+# OAuth
+
+## Bridge component — web
+
+<br>
+
+<CodeCaption caption="app/javascript/controllers/bridge/sign_in_with_oauth_controller.js" size="xs">
+
+```js
+import { BridgeComponent } from "@hotwired/hotwire-native-bridge"
+
+export default class extends BridgeComponent {
+  static component = "sign-in-with-oauth"
+  static values = {
+    startPath: String,
+    tokenAuthPath: String,
+  }
+
+  interceptClick(event) {
+    event.preventDefault()
+
+    const startPath = this.startPathValue
+    const tokenAuthPath = this.tokenAuthPathValue
+    this.send("click", { startPath, tokenAuthPath })
+  }
+}
+```
+
+</CodeCaption>
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
+    <div class="text-lg font-bold">SCREENSHOT PLACEHOLDER</div>
+    <div class="text-sm opacity-80">oauth-bridge-connected.png</div>
+  </div>
+</div>
+
+<!--
+TODO screenshot: oauth-bridge-connected.png — the bridge debug log showing the component connecting.
+
+The web half of the bridge component is tiny.
+
+We prevent the default navigation, and send the two paths over to the native side.
+
+The nice part is that the paths come from the server. The app doesn't hardcode any auth URLs, which means I can change the OAuth routes, or add a second provider, without shipping a new build.
+-->
+
+---
+layout: two-cols
+class: gap-4 text-xs
+---
+
+# OAuth
+
+## Bridge component — iOS
+
+<br>
+
+<CodeCaption caption="Components/SignInWithOauthComponent.swift" size="xxs">
+
+```swift
+final class SignInWithOauthComponent: BridgeComponent {
+    override nonisolated class var name: String {
+        "sign-in-with-oauth"
+    }
+
+    override func onReceive(message: Message) {
+        guard let data: MessageData = message.data() else { return }
+        self.tokenAuthPath = data.tokenAuthPath
+
+        let startUrl = URL(string: "\(baseUrl)\(data.startPath)")!
+        let safariVC = SFSafariViewController(url: startUrl)
+        safariVC.modalPresentationStyle = .pageSheet
+        viewController?.present(safariVC, animated: true)
+    }
+}
+```
+
+</CodeCaption>
+
+<CodeCaption caption="AppDelegate.swift" size="xxs">
+
+```swift
+Hotwire.registerBridgeComponents([
+    SignInWithOauthComponent.self,
+])
+```
+
+</CodeCaption>
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
+    <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
+    <div class="text-sm opacity-80">oauth-safari-sheet.mp4</div>
+  </div>
+</div>
+
+<!--
+TODO record video: oauth-safari-sheet.mp4 — tapping the button and the Safari sheet sliding up.
+
+The iOS side receives the message and opens a Safari view controller at the start path.
+
+Now — the question I always get here is why this isn't ASAuthorizationController, the native Sign in with Apple sheet. It's because this is Apple's web OAuth flow, driven entirely by Rails. There's no AuthenticationServices import, no entitlement, and no Keychain in this app. The upside is that one server implementation serves web, iOS, and Android.
+-->
+
+---
+layout: two-cols
+class: gap-4 text-xs
+---
+
+# OAuth
+
+## Starting the flow
+
+<br>
+
+<CodeCaption caption="app/controllers/oauth_sessions_controller.rb" size="xs">
+
+```ruby {2,12-13}
+def create
+  state = OauthState.generate(platform: params[:platform])
+
+  cookies.encrypted[:oauth_state] = {
+    value: state.to_message,
+    expires: 1.hour.from_now,
+    same_site: request.ssl? ? :none : :lax,
+    secure: request.ssl?
+  }
+
+  redirect_to apple_client.authorization_url(
+    state: state.to_message,
+    nonce: state.nonce,
+    redirect_uri: callback_auth_url
+  ), allow_other_host: true
+end
+```
+
+</CodeCaption>
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
+    <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
+    <div class="text-sm opacity-80">oauth-apple-consent.mp4</div>
+  </div>
+</div>
+
+<!--
+TODO record video: oauth-apple-consent.mp4 — the Safari sheet landing on Apple's consent screen.
+
+Safari lands here. This is the same controller action whether the request came from the web or from the app.
+
+We generate a state, stash a copy in an encrypted cookie, and redirect off to Apple.
+
+That state parameter is doing two jobs, which is the next slide.
+-->
+
+---
+layout: two-cols
+class: gap-4 text-xs
+---
+
+# OAuth
+
+## Signed state
+
+<br>
+
+<CodeCaption caption="app/models/oauth_state.rb" size="xs">
+
+```ruby {7,16-18}
+class OauthState
+  PURPOSE = :oauth_state
+
+  attr_reader :platform, :nonce
+
+  def self.generate(platform:)
+    new(platform: platform.presence || "web",
+        nonce: SecureRandom.urlsafe_base64(16))
+  end
+
+  def self.parse(message)
+    data = verifier.verified(message.to_s, purpose: PURPOSE)
+    new(platform: data["platform"], nonce: data["nonce"]) if data
+  end
+
+  def native?
+    platform == "native"
+  end
+end
+```
+
+</CodeCaption>
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
+    <div class="text-lg font-bold">SCREENSHOT PLACEHOLDER</div>
+    <div class="text-sm opacity-80">oauth-state-param.png</div>
+  </div>
+</div>
+
+<!--
+TODO screenshot: oauth-state-param.png — the authorize URL with the signed state parameter.
+
+This is the trick that makes one server flow serve both web and native.
+
+OAuth already requires a state parameter for CSRF protection. Apple echoes whatever you give it straight back. So we put the platform in there too, and sign the whole thing with a message verifier.
+
+When it comes back, we know it hasn't been tampered with, and we know whether a browser or the app started this flow.
+-->
+
+---
+layout: two-cols
+class: gap-4 text-xs
+---
+
+# OAuth
+
+## Handling the callback
+
+<br>
+
+<CodeCaption caption="app/controllers/oauth_sessions_controller.rb" size="xs">
+
+```ruby {1,15-19}
+NATIVE_CALLBACK_URL = "rssreader://auth-callback"
+
+def callback
+  state = verified_state
+  return redirect_to welcome_path, alert: INVALID_REQUEST unless state
+
+  credentials = apple_client.authenticate(
+    code: params[:code],
+    redirect_uri: callback_auth_url,
+    nonce: state.nonce
+  )
+
+  user = User.find_or_create_from_oauth(credentials)
+
+  if state.native?
+    token = user.signed_id(purpose: :native_auth,
+                           expires_in: 5.minutes)
+    redirect_to "#{NATIVE_CALLBACK_URL}?token=#{token}",
+                allow_other_host: true
+  else
+    start_new_session_for user
+    redirect_to after_authentication_url
+  end
+end
+```
+
+</CodeCaption>
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
+    <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
+    <div class="text-sm opacity-80">oauth-callback-redirect.mp4</div>
+  </div>
+</div>
+
+<!--
+TODO record video: oauth-callback-redirect.mp4 — Apple returning and the app coming back to the front.
+
+This is the heart of it.
+
+We verify the state, exchange the code with Apple, and find or create the user. All of that is the same for both platforms.
+
+Then the fork. If a browser started this, we set a session cookie and we're done — that's ordinary Rails.
+
+If the app started it, we can't set a cookie, because we're in Safari and the app's web view is a completely separate cookie jar. So instead we mint a short-lived signed token and redirect to a custom URL scheme, which is what wakes the app back up.
+-->
+
+---
+layout: two-cols
+class: gap-4 text-xs
+---
+
+# OAuth
+
+## Catching the redirect
+
+<br>
+
+<CodeCaption caption="SceneController.swift" size="xxs">
+
+```swift
+func scene(_ scene: UIScene,
+           openURLContexts URLContexts: Set<UIOpenURLContext>) {
+    guard let url = URLContexts.first?.url else { return }
+    guard url.host == "auth-callback" else { return }
+
+    let components = URLComponents(url: url,
+                                   resolvingAgainstBaseURL: false)
+    let token = components?.queryItems?
+        .first(where: { $0.name == "token" })?.value
+
+    NotificationCenter.default.post(
+        name: .signInWithOauthCompleted,
+        object: nil,
+        userInfo: ["token": token]
+    )
+}
+```
+
+</CodeCaption>
+
+<CodeCaption caption="Info.plist" size="xxs">
+
+```xml
+<key>CFBundleURLSchemes</key>
+<array>
+  <string>rssreader</string>
+</array>
+```
+
+</CodeCaption>
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
+    <div class="text-lg font-bold">SCREENSHOT PLACEHOLDER</div>
+    <div class="text-sm opacity-80">oauth-url-scheme.png</div>
+  </div>
+</div>
+
+<!--
+TODO screenshot: oauth-url-scheme.png — the Xcode console logging the rssreader://auth-callback URL.
+
+The app registers a custom URL scheme in its Info.plist. When Rails redirects to rssreader://auth-callback, iOS brings our app back to the front and hands us the URL.
+
+We pull the token out of the query string and post a notification, which the bridge component is listening for.
+-->
+
+---
+layout: two-cols
+class: gap-4 text-xs
+---
+
+# OAuth
+
+## Signing in the web view
+
+<br>
+
+<CodeCaption caption="Components/SignInWithOauthComponent.swift" size="xxs">
+
+```swift
+@objc private func handleAuthCompletion(_ notification: Notification) {
+    let token = notification.userInfo?["token"] as? String
+
+    safariViewController?.dismiss(animated: true) { [weak self] in
+        self?.authenticateWithToken(token)
+    }
+}
+
+private func authenticateWithToken(_ token: String) {
+    let url = URL(string: "\(baseUrl)\(tokenAuthPath)?token=\(token)")!
+
+    // Load in the web view so the cookie lands there
+    webView.load(URLRequest(url: url))
+}
+```
+
+</CodeCaption>
+
+<CodeCaption caption="app/controllers/oauth_sessions_controller.rb" size="xxs">
+
+```ruby
+def authenticate_by_token
+  user = User.find_signed(params[:token], purpose: :native_auth)
+
+  if user
+    start_new_session_for user
+    redirect_to after_authentication_url
+  else
+    redirect_to welcome_path, alert: UNABLE_TO_SIGN_IN
+  end
+end
+```
+
+</CodeCaption>
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
+    <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
+    <div class="text-sm opacity-80">oauth-webview-signin.mp4</div>
+  </div>
+</div>
+
+<!--
+TODO record video: oauth-webview-signin.mp4 — Safari dismissing and the web view loading signed in.
+
+This is the payoff.
+
+We dismiss the Safari sheet, and then load the token URL in the web view. Not with URLSession — in the web view.
+
+That matters, because the response comes back with a Set-Cookie header, and it needs to land in the web view's cookie store. That's the thing that has to be signed in.
+
+Rails redeems the token, creates a real session, and now every subsequent Turbo visit is authenticated.
+-->
+
+---
+layout: two-cols
+class: gap-4 text-xs
+---
+
+# OAuth
+
+## Refreshing the app
+
+<br>
+
+<CodeCaption caption="app/controllers/concerns/authentication.rb" size="xxs">
+
+```ruby {2-3}
+def after_authentication_url
+  if hotwire_native_app?
+    hotwire_native_refresh_path
+  else
+    session.delete(:return_to_after_authenticating) || entries_path
+  end
+end
+```
+
+</CodeCaption>
+
+<CodeCaption caption="SceneController.swift" size="xxs">
+
+```swift
+func handle(proposal: VisitProposal,
+            from navigator: Navigator) -> ProposalResult {
+    switch proposal.viewController {
+    case RefreshAppViewController.pathConfigurationIdentifier:
+        tabBarController.load(HotwireTab.all)
+        return .accept
+    default:
+        return .accept
+    }
+}
+```
+
+</CodeCaption>
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
+    <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
+    <div class="text-sm opacity-80">oauth-tabbar-rebuild.mp4</div>
+  </div>
+</div>
+
+<!--
+TODO record video: oauth-tabbar-rebuild.mp4 — the tab bar rebuilding with the signed-in tabs.
+
+One last step that's easy to forget.
+
+At this point the session cookie exists, but the app still looks signed out — the tab bar was built when there was no user.
+
+So after authentication, Rails sends native clients to a refresh path instead of the normal landing page. Path configuration maps that to a view controller the app recognizes, and the app rebuilds its tabs.
+
+Now the app is actually signed in.
+-->
+
+---
+layout: section
+---
+
 # Review
 
 ---
