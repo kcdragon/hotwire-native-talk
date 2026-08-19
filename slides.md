@@ -2240,13 +2240,17 @@ class: text-center
 
 # Thanks!
 
-<div class="flex gap-12 items-start justify-center mt-8">
-  <div class="flex flex-col items-center gap-2">
-    <img src="/images/calendar-vision-app.png" class="max-h-60 rounded shadow-lg" />
+<div class="flex gap-12 items-start justify-center mt-10">
+  <div class="flex flex-col items-center gap-3 w-56">
+    <img src="/images/calendar-vision-app.png" class="w-full rounded shadow-lg" />
     <div class="text-sm opacity-80">Calendar Vision app · calendarvision.app</div>
   </div>
-  <div class="flex flex-col items-center gap-2">
-    <img src="/images/qr-code.png" class="max-h-60 rounded shadow-lg" />
+  <div class="flex flex-col items-center gap-3 w-56">
+    <img src="/images/qr-code.png" class="w-full rounded shadow-lg" />
     <div class="text-sm opacity-80">Find me online · mikedalton.co/socials</div>
+  </div>
+  <div class="flex flex-col items-center gap-3 w-56">
+    <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-3" />
+    <div class="text-sm opacity-80">Questions? · Session Q&amp;A</div>
   </div>
 </div>
