@@ -2206,16 +2206,19 @@ title: OAuth - End to end
 <DemoVideo src="/videos/oauth-sign-in-ios.mp4" maxH="max-h-100" />
 
 ---
+layout: title-left
+title: OAuth - The problem
+---
+
+::title::
 
 # OAuth
 
-## The problem
+## Web view problem
 
-<br>
+::default::
 
-- Apple won't run OAuth inside an embedded web view
-- The native app can't sign the web view in directly
-- Run the flow outside the app, then hand the session back
+<img src="/images/oauth-google-access-blocked.png" class="max-h-100 rounded-lg shadow-lg" alt="Google access blocked error inside an embedded web view" />
 
 ---
 layout: title-left
