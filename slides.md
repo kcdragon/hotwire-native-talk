@@ -2191,8 +2191,23 @@ layout: section
 # OAuth
 
 ---
-layout: two-cols
-class: gap-4
+layout: title-left
+title: OAuth - End to end
+---
+
+::title::
+
+# OAuth
+
+## Sign in with Apple
+
+::default::
+
+<DemoVideo src="/videos/oauth-sign-in-ios.mp4" maxH="max-h-100" />
+
+<!--
+-->
+
 ---
 
 # OAuth
@@ -2205,18 +2220,7 @@ class: gap-4
 - The native app can't sign the web view in directly
 - Run the flow outside the app, then hand the session back
 
-::right::
-
-<div class="h-full flex items-center justify-center">
-  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
-    <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
-    <div class="text-sm opacity-80">oauth-sign-in-ios.mp4</div>
-  </div>
-</div>
-
 <!--
-TODO record video: oauth-sign-in-ios.mp4 — full sign in with Apple flow on the iOS app.
-
 OAuth providers refuse to run inside an embedded web view. They can't tell a legitimate app from one that's screen scraping your password, so they block it.
 
 That leaves us with a problem. The OAuth flow has to happen somewhere else, in a real browser. But the thing that needs to end up signed in is our web view.
@@ -2225,17 +2229,17 @@ So the native app runs the flow outside, and then hands the resulting session ba
 -->
 
 ---
-layout: center
-class: text-center
-title: Supporting OAuth - Web
+layout: title-left
+title: OAuth - Web
 ---
 
-<div class="absolute left-14 top-1/2 -translate-y-1/2 text-left">
-  <h1 class="!text-5xl !font-bold !leading-tight !m-0">Supporting<br/>OAuth</h1>
-  <div class="text-3xl font-bold mt-3">Web</div>
-</div>
+::title::
 
-<div class="ml-64">
+# OAuth
+
+## Web
+
+::default::
 
 ```mermaid {scale: 0.5}
 sequenceDiagram
@@ -2259,8 +2263,6 @@ sequenceDiagram
     Rails-->>Browser: 200 OK
 ```
 
-</div>
-
 <!--
 On the web, this is the ordinary OAuth dance and there's nothing surprising in it.
 
@@ -2270,17 +2272,17 @@ I'm showing it first because the native version has to end up in exactly the sam
 -->
 
 ---
-layout: center
-class: text-center
-title: Supporting OAuth - Native solution
+layout: title-left
+title: OAuth - Native
 ---
 
-<div class="absolute left-14 top-1/2 -translate-y-1/2 text-left">
-  <h1 class="!text-5xl !font-bold !leading-tight !m-0">Supporting<br/>OAuth</h1>
-  <div class="text-3xl font-bold mt-3">Native<br/>(Safari)</div>
-</div>
+::title::
 
-<div class="ml-64">
+# OAuth
+
+## Native
+
+::default::
 
 ```mermaid {scale: 0.5}
 sequenceDiagram
@@ -2306,8 +2308,6 @@ sequenceDiagram
     Note over Rails: Redeem token,<br/>set session cookie
     Rails-->>WKWebView: 302 /hotwire_native/refresh
 ```
-
-</div>
 
 <!--
 This is the whole solution in one picture, and it's the slide to point back at.
