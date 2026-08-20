@@ -635,7 +635,7 @@ layout: two-cols
 
 ::right::
 
-<VCenter>
+<Center>
 
 <CodeCaption caption="SceneDelegate.swift" size="xs">
 
@@ -666,7 +666,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 </CodeCaption>
 
-</VCenter>
+</Center>
 
 <!--
 The only change you'll need to make is to replace the entry point of the app with a small bit of code that tells Hotwire Native the starting location of your web app.
@@ -704,7 +704,7 @@ layout: two-cols
 
 ::right::
 
-<VCenter>
+<Center>
 
 <CodeCaption caption="app/build.gradle.kts" size="xs">
 
@@ -719,7 +719,7 @@ dependencies {
 
 </CodeCaption>
 
-</VCenter>
+</Center>
 
 <!--
 Android has a `hotwire-native-android` Kotlin library that needs to be added to your dependencies.
@@ -739,7 +739,7 @@ layout: two-cols
 
 ::right::
 
-<VCenter>
+<Center>
 
 <CodeCaption caption="app/src/main/AndroidManifest.xml" size="xs">
 
@@ -751,7 +751,7 @@ layout: two-cols
 
 </CodeCaption>
 
-</VCenter>
+</Center>
 
 <!--
 Android has requires a little more than iOS to get started. Start by asking for the internet permission for your app. This tells Android that you need to be able to call your web app from within your native app.
@@ -771,7 +771,7 @@ layout: two-cols
 
 ::right::
 
-<VCenter>
+<Center>
 
 <CodeCaption caption="MainActivity.kt" size="xs">
 
@@ -805,7 +805,7 @@ class MainActivity : HotwireActivity() {
 
 </CodeCaption>
 
-</VCenter>
+</Center>
 
 <!--
 Similar to iOS, the entry point for the Kotlin app needs to be updated with the starting location URL of your web app.
@@ -825,7 +825,7 @@ layout: two-cols
 
 ::right::
 
-<VCenter>
+<Center>
 
 <CodeCaption caption="activity_main.xml" size="xs">
 
@@ -843,7 +843,7 @@ layout: two-cols
 
 </CodeCaption>
 
-</VCenter>
+</Center>
 
 <!--
 XML still seems pretty popular in the Java world so you've also got a bit of XML to add.
@@ -2325,16 +2325,15 @@ class: gap-4 text-xs
 
 ::right::
 
-<div class="h-full flex items-center justify-center">
-  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
-    <div class="text-lg font-bold">SCREENSHOT PLACEHOLDER</div>
-    <div class="text-sm opacity-80">oauth-sign-in-button.png</div>
-  </div>
-</div>
-
-<!--
-TODO screenshot: oauth-sign-in-button.png — the sign in page showing the Sign in with Apple button.
--->
+<Center>
+  <AnnotatedImage
+    src="/images/oauth-sign-in-button.png"
+    alt="The app's sign in screen, with a Sign in with Apple button"
+    :to="[99, 59]"
+    :from="[140, 34]"
+    :bow="6"
+    label="Bridge component" />
+</Center>
 
 ---
 layout: two-cols
@@ -2373,12 +2372,12 @@ export default class extends BridgeComponent {
 
 ::right::
 
-<div class="h-full flex items-center justify-center">
+<Center>
   <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
     <div class="text-lg font-bold">SCREENSHOT PLACEHOLDER</div>
     <div class="text-sm opacity-80">oauth-bridge-connected.png</div>
   </div>
-</div>
+</Center>
 
 <!--
 TODO screenshot: oauth-bridge-connected.png — the bridge debug log showing the component connecting.
@@ -2429,12 +2428,12 @@ Hotwire.registerBridgeComponents([
 
 ::right::
 
-<div class="h-full flex items-center justify-center">
+<Center>
   <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
     <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
     <div class="text-sm opacity-80">oauth-safari-sheet.mp4</div>
   </div>
-</div>
+</Center>
 
 <!--
 TODO record video: oauth-safari-sheet.mp4 — tapping the button and the Safari sheet sliding up.
@@ -2476,12 +2475,12 @@ end
 
 ::right::
 
-<div class="h-full flex items-center justify-center">
+<Center>
   <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
     <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
     <div class="text-sm opacity-80">oauth-apple-consent.mp4</div>
   </div>
-</div>
+</Center>
 
 <!--
 TODO record video: oauth-apple-consent.mp4 — the Safari sheet landing on Apple's consent screen.
@@ -2526,12 +2525,12 @@ end
 
 ::right::
 
-<div class="h-full flex items-center justify-center">
+<Center>
   <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
     <div class="text-lg font-bold">SCREENSHOT PLACEHOLDER</div>
     <div class="text-sm opacity-80">oauth-state-param.png</div>
   </div>
-</div>
+</Center>
 
 <!--
 TODO screenshot: oauth-state-param.png — the authorize URL with the signed state parameter.
@@ -2581,12 +2580,12 @@ end
 
 ::right::
 
-<div class="h-full flex items-center justify-center">
+<Center>
   <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
     <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
     <div class="text-sm opacity-80">oauth-callback-redirect.mp4</div>
   </div>
-</div>
+</Center>
 
 <!--
 TODO record video: oauth-callback-redirect.mp4 — Apple returning and the app coming back to the front.
@@ -2639,12 +2638,12 @@ func scene(_ scene: UIScene,
 
 ::right::
 
-<div class="h-full flex items-center justify-center">
+<Center>
   <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
     <div class="text-lg font-bold">SCREENSHOT PLACEHOLDER</div>
     <div class="text-sm opacity-80">oauth-url-scheme.png</div>
   </div>
-</div>
+</Center>
 
 <!--
 TODO screenshot: oauth-url-scheme.png — the Xcode console logging the rssreader://auth-callback URL.
@@ -2701,12 +2700,12 @@ end
 
 ::right::
 
-<div class="h-full flex items-center justify-center">
+<Center>
   <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
     <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
     <div class="text-sm opacity-80">oauth-webview-signin.mp4</div>
   </div>
-</div>
+</Center>
 
 <!--
 TODO record video: oauth-webview-signin.mp4 — Safari dismissing and the web view loading signed in.
@@ -2756,12 +2755,12 @@ func handle(proposal: VisitProposal,
 
 ::right::
 
-<div class="h-full flex items-center justify-center">
+<Center>
   <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
     <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
     <div class="text-sm opacity-80">oauth-tabbar-rebuild.mp4</div>
   </div>
-</div>
+</Center>
 
 <!--
 TODO record video: oauth-tabbar-rebuild.mp4 — the tab bar rebuilding with the signed-in tabs.
