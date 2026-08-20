@@ -2326,14 +2326,14 @@ class: gap-4 text-xs
 ::right::
 
 <Center>
-  <AnnotatedImage
+  <img
     src="/images/oauth-sign-in-button.png"
     alt="The app's sign in screen, with a Sign in with Apple button"
-    :to="[99, 59]"
-    :from="[140, 34]"
-    :bow="6"
-    label="Bridge component" />
+    class="max-h-100 rounded-lg shadow-lg" />
 </Center>
+
+<FancyArrow from="(858,255)" to="(795,310)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="0.25" seed="13" />
+<div v-drag="[778,222,160,24]" class="text-sm font-bold text-red-600 whitespace-nowrap text-right"> Sign in with Apple button</div>
 
 ---
 layout: two-cols
