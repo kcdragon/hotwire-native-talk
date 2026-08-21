@@ -1496,6 +1496,12 @@ class: gap-4 text-sm
 </div>
 
 ---
+layout: section
+---
+
+# Calendar Switcher
+
+---
 layout: two-cols
 ---
 
