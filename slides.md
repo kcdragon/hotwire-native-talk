@@ -1134,47 +1134,27 @@ layout: section
 <QaQrCode v-drag="[800,400,140,150]" />
 
 ---
+layout: two-cols-header
+class: gap-4
+---
 
 # Navigation Bar Title
 
-<div class="flex gap-8 items-center justify-center mt-4">
+::left::
+
+<Center>
   <img src="/images/navbar-title-before.png" class="max-h-90 rounded shadow-lg" />
-  <img src="/images/navbar-title-after.png" class="max-h-90 rounded shadow-lg" />
-</div>
-
----
-
-# Navigation Bar Title
-
-## Implementation steps
-
-<br>
-
-- Add page-specific title tag in Rails code base
-- Hide h1 tag in Rails code base
-
----
-layout: two-cols
----
-
-# Navigation Bar Title
-
-## Add title tag
+</Center>
 
 ::right::
 
-<img src="/images/navbar-title-tag.png" class="max-h-110 mx-auto rounded shadow-lg" />
+<Center>
+  <img src="/images/navbar-title-after.png" class="max-h-90 rounded shadow-lg" />
+</Center>
 
----
-
-# Navigation Bar Title
-
-## Implementation steps
-
-<br>
-
-- Add page-specific title tag in Rails code base
-- Hide h1 tag in Rails code base
+<div class="absolute inset-0 pointer-events-none" style="z-index: 200">
+  <FancyArrow from="(255,178)" to="(690,150)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="0.32" seed="7" />
+</div>
 
 ---
 layout: two-cols
@@ -1183,30 +1163,48 @@ class: gap-4 text-sm
 
 # Navigation Bar Title
 
-## Add hotwire-native CSS variant
+## Add title tag
 
 <br>
 
-<CodeCaption caption="application.html.erb" size="sm">
+<CodeCaption caption="feeds/index.html.erb" size="sm">
 
 ```erb
-<!DOCTYPE html>
-<%= tag.html(
-  data: {
-    hotwire_native: hotwire_native_app?,
-  },
-) do %>
-  <head>
-    <title><%= content_for(:title) || "RSS Reader" %></title>
-    ...
-<% end %>
+<%= content_for :title, "Your Feeds" %>
 ```
 
 </CodeCaption>
 
 ::right::
 
-<div class="mt-30" />
+<Center>
+  <img src="/images/navbar-title-tag.png" class="max-h-110 rounded shadow-lg" />
+</Center>
+
+---
+layout: two-cols
+class: gap-4 text-xs
+---
+
+# Navigation Bar Title
+
+## Hide h1 on native
+
+<br>
+
+<CodeCaption caption="application.html.erb" size="xs">
+
+```erb
+<%= tag.html(
+  data: { hotwire_native: hotwire_native_app? },
+) do %>
+  ...
+<% end %>
+```
+
+</CodeCaption>
+
+<CodeCaption caption="application.css" size="xs">
 
 ```css
 @variant hotwire-native {
@@ -1216,19 +1214,23 @@ class: gap-4 text-sm
 }
 ```
 
-<div class="text-xs opacity-60 text-center">application.css</div>
+</CodeCaption>
 
----
-layout: two-cols
----
+<CodeCaption caption="feeds/index.html.erb" size="xs">
 
-# Navigation Bar Title
+```erb
+<h1 class="hotwire-native:hidden text-2xl font-bold">
+  Your Feeds
+</h1>
+```
 
-## Hide h1 on Hotwire Native apps
+</CodeCaption>
 
 ::right::
 
-<img src="/images/navbar-hide-h1.png" class="max-h-110 mx-auto rounded shadow-lg" />
+<Center>
+  <img src="/images/navbar-hide-h1.png" class="max-h-110 rounded shadow-lg" />
+</Center>
 
 ---
 layout: section
