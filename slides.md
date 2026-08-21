@@ -1678,34 +1678,40 @@ layout: section
   - Android fragment
 
 ---
+layout: two-cols-header
+class: gap-4
+---
 
 # Bridge Components
 
 ## Navigation Bar Button
 
-<div class="flex gap-8 items-center justify-center mt-4">
+::left::
+
+<Center>
   <img src="/images/bridge-button-1.png" class="max-h-90 rounded shadow-lg" />
+</Center>
+
+::right::
+
+<Center>
   <img src="/images/bridge-button-2.png" class="max-h-90 rounded shadow-lg" />
+</Center>
+
+<div class="absolute inset-0 pointer-events-none" style="z-index: 200">
+  <FancyArrow from="(242,208)" to="(745,182)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="0.32" seed="7" />
 </div>
 
 ---
-
-# Bridge Components
-
-## Navigation Bar Button
-
-<br>
-
-- Add Stimulus controller
-- Update the `link_to` helper to use the Stimulus controller
-- Add iOS component
-- Add Android component
-
----
-class: text-sm
+layout: two-cols-header
+class: gap-4
 ---
 
 # Bridge Components — Navigation Bar Button
+
+::left::
+
+<CodeCaption caption="app/javascript/controllers/bridge/button_controller.js" size="sm">
 
 ```js
 import { BridgeComponent } from "@hotwired/hotwire-native-bridge"
@@ -1725,11 +1731,9 @@ export default class extends BridgeComponent {
 }
 ```
 
-<div class="text-xs opacity-60 text-center">app/javascript/controllers/bridge/button_controller.js</div>
+</CodeCaption>
 
----
-
-# Bridge Components — Navigation Bar Button
+<CodeCaption caption="app/views/feeds/index.html.erb" size="sm">
 
 ```erb
 <%= link_to "Add Feed", new_feed_path,
@@ -1740,7 +1744,13 @@ export default class extends BridgeComponent {
   } %>
 ```
 
-<div class="text-xs opacity-60 text-center">app/views/feeds/index.html.erb</div>
+</CodeCaption>
+
+::right::
+
+<Center>
+  <img src="/images/bridge-button-1.png" class="max-h-90 rounded shadow-lg" />
+</Center>
 
 ---
 class: text-xs
