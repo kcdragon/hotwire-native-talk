@@ -1661,30 +1661,18 @@ end
 layout: section
 ---
 
-# Bridge Components
+# Navigation Bar Button
 
 <QaQrCode v-drag="[800,400,140,150]" />
-
----
-
-# Bridge Components
-
-<br>
-
-- Formerly called Strada
-- Three parts
-  - Stimulus controller
-  - iOS component
-  - Android fragment
 
 ---
 layout: two-cols-header
 class: gap-4
 ---
 
-# Bridge Components
+# Navigation Bar Button
 
-## Navigation Bar Button
+## Goal
 
 ::left::
 
@@ -1703,13 +1691,13 @@ class: gap-4
 </div>
 
 ---
-layout: two-cols-header
+layout: two-cols
 class: gap-4
 ---
 
-# Bridge Components — Navigation Bar Button
+# Navigation Bar Button
 
-::left::
+## Web
 
 <CodeCaption caption="app/javascript/controllers/bridge/button_controller.js" size="sm">
 
@@ -1752,77 +1740,71 @@ export default class extends BridgeComponent {
   <img src="/images/bridge-button-1.png" class="max-h-90 rounded shadow-lg" />
 </Center>
 
+<FancyArrow from="(300,416)" to="(632,174)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="0.28" seed="11" />
+
 ---
-class: text-xs
+layout: two-cols
+class: gap-4
 ---
 
-# Bridge Components — Navigation Bar Button
+# Navigation Bar Button
+
+## iOS
+
+<CodeCaption caption="ButtonComponent.swift" size="xs">
 
 ```swift
-import HotwireNative
-import UIKit
-
 final class ButtonComponent: BridgeComponent {
     override class var name: String { "button" }
 
     override func onReceive(message: Message) {
-        guard let viewController else { return }
-        addButton(via: message, to: viewController)
-    }
-
-    private var viewController: UIViewController? {
-        delegate?.destination as? UIViewController
-    }
-
-    private func addButton(via message: Message, to viewController: UIViewController) {
-        guard let data: MessageData = message.data() else { return }
+        guard let data: MessageData = message.data(),
+              let viewController = delegate?.destination as? UIViewController
+        else { return }
 
         let action = UIAction { [unowned self] _ in
             self.reply(to: "connect")
         }
-        let item = UIBarButtonItem(title: data.title, primaryAction: action)
-        viewController.navigationItem.rightBarButtonItem = item
+        viewController.navigationItem.rightBarButtonItem =
+            UIBarButtonItem(title: data.title, primaryAction: action)
     }
-}
 
-private extension ButtonComponent {
     struct MessageData: Decodable {
         let title: String
     }
 }
 ```
 
-<div class="text-xs opacity-60 text-center">ButtonComponent.swift</div>
+</CodeCaption>
 
----
-class: text-sm
----
-
-# Bridge Components — Navigation Bar Button
+<CodeCaption caption="AppDelegate.swift" size="xs">
 
 ```swift
-import HotwireNative
-import UIKit
-
-@main
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    func application(_ application: UIApplication,
-      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        Hotwire.registerBridgeComponents([
-            ButtonComponent.self
-        ])
-        return true
-    }
-}
+Hotwire.registerBridgeComponents([
+    ButtonComponent.self
+])
 ```
 
-<div class="text-xs opacity-60 text-center">AppDelegate.swift</div>
+</CodeCaption>
+
+::right::
+
+<Center>
+  <img src="/images/bridge-button-2.png" class="max-h-100 rounded shadow-lg" />
+</Center>
+
+<FancyArrow from="(385,298)" to="(752,120)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="0.28" seed="7" />
 
 ---
-class: text-xs
+layout: two-cols
+class: gap-4
 ---
 
-# Bridge Components — Navigation Bar Button
+# Navigation Bar Button
+
+## Android
+
+<CodeCaption caption="ButtonComponent.kt" size="xs">
 
 ```kotlin
 class ButtonComponent(
@@ -1831,39 +1813,26 @@ class ButtonComponent(
 ) : BridgeComponent<HotwireDestination>(name, delegate) {
 
     override fun onReceive(message: Message) {
-        // Handle incoming messages based on the message `event`.
         when (message.event) {
             "connect" -> handleConnectEvent(message)
-            else -> Log.w("ButtonComponent", "Unknown event for message: $message")
+            else -> Log.w("ButtonComponent", "Unknown event")
         }
     }
 
     private fun handleConnectEvent(message: Message) {
         val data = message.data<MessageData>() ?: return
-
-        // Write native code to display a native submit button in the
-        // toolbar displayed in the delegate.destination. Use the
-        // incoming data.title to set the button title.
+        // Add a toolbar button titled data.title that
+        // calls replyTo("connect") when tapped.
     }
 
-    private fun performButtonClick(): Boolean {
-        return replyTo("connect")
-    }
-
-    // Use kotlinx.serialization annotations to define a serializable
-    // data class that represents the incoming message.data json.
     @Serializable
-    data class MessageData(
-        @SerialName("title") val title: String
-    )
+    data class MessageData(@SerialName("title") val title: String)
 }
 ```
 
-<div class="text-xs opacity-60 text-center">ButtonComponent.kt</div>
+</CodeCaption>
 
----
-
-# Bridge Components — Navigation Bar Button
+<CodeCaption caption="MainApplication.kt" size="xs">
 
 ```kotlin
 Hotwire.registerBridgeComponents(
@@ -1871,17 +1840,19 @@ Hotwire.registerBridgeComponents(
 )
 ```
 
+</CodeCaption>
+
+::right::
+
+<DemoVideo src="/videos/bridge-button-demo.mp4" maxH="max-h-100" />
+
 ---
-layout: two-cols
+layout: section
 ---
 
 # Bridge Components
 
-## Navigation Bar Button
-
-::right::
-
-<DemoVideo src="/videos/bridge-button-demo.mp4" />
+<QaQrCode v-drag="[800,400,140,150]" />
 
 ---
 layout: two-cols
