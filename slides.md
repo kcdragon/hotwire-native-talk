@@ -2834,7 +2834,7 @@ layout: statement
 layout: statement
 ---
 
-# The Native Tab Bar is an easy native component to add
+# A native tab bar is an easy native component to add
 
 ---
 layout: statement
