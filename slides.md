@@ -1497,6 +1497,8 @@ class: gap-4 text-sm
   <img src="/images/tabbar-web-nav-2.png" class="max-h-100 rounded shadow-lg" />
 </div>
 
+<FancyArrow from="(540,143)" to="(715,143)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="0.32" seed="7" />
+
 ---
 layout: section
 ---
@@ -1844,7 +1846,7 @@ Hotwire.registerBridgeComponents(
 
 ::right::
 
-<DemoVideo src="/videos/bridge-button-demo.mp4" maxH="max-h-100" />
+<DemoVideo src="/videos/bridge-button-android.mp4" maxH="max-h-100" />
 
 ---
 layout: section
@@ -1855,24 +1857,31 @@ layout: section
 <QaQrCode v-drag="[800,400,140,150]" />
 
 ---
-layout: two-cols
+layout: title-left
+title: Bridge Components - Navigation Bar Menu
 ---
+
+::title::
 
 # Bridge Components
 
 ## Navigation Bar Menu
 
-<img src="/images/bridge-menu.png" class="max-h-80 mt-4 rounded shadow-lg" />
+::default::
 
-::right::
-
-<DemoVideo src="/videos/bridge-menu-demo.mp4" />
+<DemoVideo src="/videos/bridge-menu-android.mp4" maxH="max-h-100" />
 
 ---
+layout: title-left
+---
+
+::title::
 
 # Bridge Components
 
 ## Toast Messages
+
+::default::
 
 <div class="flex gap-8 items-center justify-center mt-4">
   <img src="/images/toast-1.png" class="max-h-85 rounded shadow-lg" />
@@ -1880,14 +1889,16 @@ layout: two-cols
 </div>
 
 ---
-layout: two-cols
+layout: title-left
 ---
+
+::title::
 
 # Bridge Components
 
 ## Request Permissions
 
-::right::
+::default::
 
 <img src="/images/request-permissions.png" class="max-h-110 mx-auto rounded shadow-lg" />
 
