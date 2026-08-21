@@ -463,10 +463,10 @@ Then we set a timeout that removes the element after five seconds have passed.
 -->
 
 ---
-layout: statement
+layout: section
 ---
 
-# Mobile in 2026 = Many Choices
+# Mobile Frameworks
 
 ---
 
@@ -482,6 +482,10 @@ layout: statement
     <img src="/images/native-ios.png" class="max-h-80 rounded shadow-lg" />
   </div>
 </div>
+
+<!--
+The most obvious choices are native apps written in Swift and Kotlin.
+-->
 
 ---
 
@@ -520,14 +524,21 @@ layout: statement
   </div>
 </div>
 
+<!--
+The biggest downside of building native apps is that you need to build two separate mobile apps. Three if you need a web app.
+
+Besides Hotwire Native, there are many cross platform frameworks.
+-->
+
 ---
 layout: image
 image: /images/hotwire-native-history.png
 backgroundSize: contain
-title: Hotwire Native history
+title: Hotwire Native
 ---
 
 <!--
+That brings us to the subject of this talk, Hotwire Native.
 -->
 
 ---
