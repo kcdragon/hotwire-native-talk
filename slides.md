@@ -1919,202 +1919,242 @@ layout: section
 
 ---
 layout: two-cols
+class: gap-4
+---
+
+# Add to Calendar
+
+## Rails
+
+<CodeCaption caption="app/javascript/controllers/bridge/add_to_calendar_controller.js" size="sm">
+
+```js
+import { BridgeComponent } from "@hotwired/hotwire-native-bridge"
+
+export default class extends BridgeComponent {
+  static component = "add-to-calendar"
+  static values = {
+    eventPayload: Object,
+  }
+
+  add() {
+    this.send("add", this.eventPayloadValue)
+  }
+}
+```
+
+</CodeCaption>
+
+<CodeCaption caption="app/views/calendar_events/_add_to_calendar.html.erb" size="sm">
+
+```erb
+<% payload = calendar_event_json_payload(calendar_event) %>
+<%= tag.div data: {
+  controller: "bridge--add-to-calendar",
+  bridge__add_to_calendar_event_payload_value: payload.to_json
+} do %>
+  <%= button_tag data: {
+    action: "bridge--add-to-calendar#add:prevent",
+  } do %>
+    <i class="fa-regular fa-calendar-plus fa-lg"></i>
+  <% end %>
+<% end %>
+```
+
+</CodeCaption>
+
+::right::
+
+<Center>
+  <div class="w-45 h-90 border-2 border-dashed rounded-lg opacity-40 flex items-center justify-center text-center text-sm p-4">
+    TODO: screenshot of the Add to Calendar button on the web
+  </div>
+</Center>
+
+---
+layout: two-cols
+class: gap-4
 ---
 
 # Add to Calendar
 
 ## iOS
 
-::right::
-
-<DemoVideo src="/videos/add-to-calendar-ios.mp4" />
-
----
-class: text-xs
----
-
-# Handle URL with a native component
+<CodeCaption caption="AddToCalendarComponent.swift" size="xs">
 
 ```swift
-class SceneController: UIResponder {
-    private var addToCalendarController: AddToCalendarController?
-}
-
-extension SceneController: NavigatorDelegate {
-    func handle(proposal: VisitProposal, from navigator: Navigator) -> ProposalResult {
-        switch proposal.viewController {
-        case "add_to_calendar":
-            let idRegex = /(?<id>\d+)\/add_to_calendar/
-            let url = proposal.url.absoluteString
-            if let match = url.firstMatch(of: idRegex) {
-                let calendarEventId = Int(match.id)!
-                Task { await addToCalendarController?.addToCalendar(calendarEventId: calendarEventId) }
-            }
-            return .reject
-        default:
-            return .accept
-        }
-    }
-}
-```
-
-<div class="text-xs opacity-60 text-center">SceneController.swift</div>
-
----
-layout: two-cols
-class: gap-4 text-xs
----
-
-# Show Event View
-
-<br>
-
-- Get event data from Rails app
-- Launch native event view
-
-::right::
-
-<CodeCaption caption="AddToCalendarController.swift" size="xs">
-
-```swift
-class AddToCalendarController: NSObject {
-    private weak var window: UIWindow?
-
-    init(window: UIWindow?) {
-        self.window = window
-        super.init()
+final class AddToCalendarComponent: BridgeComponent {
+    private var viewController: UIViewController? {
+        delegate?.destination as? UIViewController
     }
 
-    func addToCalendar(calendarEventId: Int) async {
-        let url = baseUrl
-            .appendingPathComponent("calendar_events/\(calendarEventId)")
-        let viewModel = CalendarEventViewModel(url: url)
-        await viewModel.fetchCalendarEvent()
+    override func onReceive(message: Message) {
+        guard message.event == "add",
+              let calendarEvent: CalendarEvent = message.data()
+        else { return }
 
-        guard let calendarEvent = viewModel.calendarEvent else {
-            print("Error: Could not fetch calendar event")
-            return
-        }
-
-        let event = EKEvent(eventStore: CalendarEventStore.shared)
-        event.calendar = CalendarEventStore.shared.defaultCalendarForNewEvents
-        event.title = calendarEvent.name
-        ...
-
-        await MainActor.run {
-            let eventViewController = AddToCalendarEKEventEditViewController()
-            eventViewController.calendarEventId = calendarEventId
-            eventViewController.event = event
-            eventViewController.eventStore = CalendarEventStore.shared
-            eventViewController.editViewDelegate = self
-            window?.rootViewController?
-                .present(eventViewController, animated: true)
+        Task {
+            await presentEventEditor(calendarEvent: calendarEvent)
         }
     }
+
+    ...
 }
 ```
 
 </CodeCaption>
 
----
-layout: two-cols
-class: gap-4 text-xs
----
+<CodeCaption caption="AppDelegate.swift" size="xs">
 
-# Dismiss Event View
+```swift
+Hotwire.registerBridgeComponents([
+    AddToCalendarComponent.self
+])
+```
 
-<br>
-
-- Event gets added to their calendar
-- Dismiss event view
-- Show success toast message
+</CodeCaption>
 
 ::right::
 
-<CodeCaption caption="AddToCalendarController.swift" size="xs">
+<DemoVideo src="/videos/add-to-calendar-ios.mp4" maxH="max-h-100" />
+
+---
+layout: two-cols
+class: gap-4
+---
+
+# Add to Calendar
+
+## iOS (continued)
+
+<CodeCaption caption="AddToCalendarComponent.swift" size="xs">
 
 ```swift
-extension AddToCalendarController: EKEventEditViewDelegate {
+private func presentEventEditor(calendarEvent: CalendarEvent) async {
+    let event = EKEventBuilder.makeEvent(
+        from: calendarEvent,
+        eventStore: CalendarEventStore.shared
+    )
+
+    await MainActor.run {
+        let editDelegate = EventEditDelegate()
+        let eventViewController = EKEventEditViewController()
+        eventViewController.event = event
+        eventViewController.eventStore = CalendarEventStore.shared
+        eventViewController.editViewDelegate = editDelegate
+        viewController?.present(eventViewController, animated: true)
+    }
+}
+
+private final class EventEditDelegate: NSObject, EKEventEditViewDelegate {
     func eventEditViewController(
         _ controller: EKEventEditViewController,
         didCompleteWith action: EKEventEditViewAction
     ) {
         controller.dismiss(animated: true)
-
-        switch action {
-        case .saved:
-            if let rootViewController = window?.rootViewController {
-                ToastController(rootViewController).showToast("Event added!")
-            }
-            print("User saved the event to their calendar")
-        default:
-            print("User did not save the event to their calendar")
-        }
     }
 }
 ```
 
 </CodeCaption>
 
----
-class: text-sm
----
+::right::
 
-# Configure URL to use native component
-
-```ruby
-class ConfigurationsController < ApplicationController
-  def ios_v1
-    render json: {
-      rules: [
-        {
-          patterns: [
-            "/calendar_events/[0-9]+/add_to_calendar"
-          ],
-          properties: {
-            view_controller: "add_to_calendar"
-          }
-        }
-      ]
-    }
-  end
-end
-```
-
-<div class="text-xs opacity-60 text-center">app/controllers/configurations_controller.rb</div>
-
----
-
-# Add link to open native component
-
-```erb
-<%= link_to "/calendar_events/#{calendar_event.id}/add_to_calendar" do %>
-  Add to Calendar
-<% end %>
-```
-
-<div class="text-xs opacity-60 text-center">_add_to_calendar.html.erb</div>
+<Center>
+  <div class="w-45 h-90 border-2 border-dashed rounded-lg opacity-40 flex items-center justify-center text-center text-sm p-4">
+    TODO: screenshot of the native event editor
+  </div>
+</Center>
 
 ---
 layout: two-cols
+class: gap-4
 ---
 
 # Add to Calendar
 
 ## Android
 
+<CodeCaption caption="AddToCalendarComponent.kt" size="xs">
+
+```kotlin
+class AddToCalendarComponent(
+    name: String,
+    private val bridgeDelegate: BridgeDelegate<HotwireDestination>
+) : BridgeComponent<HotwireDestination>(name, bridgeDelegate) {
+    override fun onReceive(message: Message) {
+        when (message.event) {
+            "add" -> handleAddToCalendar(message)
+        }
+    }
+
+    private fun handleAddToCalendar(message: Message) {
+        val calendarEvent = message.data<CalendarEvent>()
+        val activity = bridgeDelegate.destination
+            .fragment.requireActivity()
+        openCalendarEventInIntent(calendarEvent, activity)
+    }
+
+    ...
+}
+```
+
+</CodeCaption>
+
+<CodeCaption caption="MainApplication.kt" size="xs">
+
+```kotlin
+Hotwire.registerBridgeComponents(
+    BridgeComponentFactory("add-to-calendar", ::AddToCalendarComponent)
+)
+```
+
+</CodeCaption>
+
 ::right::
 
-<DemoVideo src="/videos/add-to-calendar-android.mp4" />
+<DemoVideo src="/videos/add-to-calendar-android.mp4" maxH="max-h-100" />
 
 ---
+layout: two-cols
+class: gap-4
+---
 
-# Add to Calendar native component
+# Add to Calendar
 
-<br>
+## Android (continued)
 
-- Different implementations on iOS and Android
-- Same Rails code for triggering the native component
+<CodeCaption caption="AddToCalendarComponent.kt" size="xs">
+
+```kotlin
+private fun openCalendarEventInIntent(
+    calendarEvent: CalendarEvent,
+    activity: android.app.Activity
+) {
+    var intent = Intent(Intent.ACTION_INSERT)
+        .setData(CalendarContract.Events.CONTENT_URI)
+        .putExtra(CalendarContract.Events.TITLE, calendarEvent.name)
+        .putExtra(
+            CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+            calendarEvent.startsAtInMillisecondsSinceEpoch
+        )
+        .putExtra(
+            CalendarContract.EXTRA_EVENT_END_TIME,
+            calendarEvent.endsAtInMillisecondsSinceEpoch
+        )
+    activity.startActivity(intent)
+}
+```
+
+</CodeCaption>
+
+::right::
+
+<Center>
+  <div class="w-45 h-90 border-2 border-dashed rounded-lg opacity-40 flex items-center justify-center text-center text-sm p-4">
+    TODO: screenshot of the calendar intent on Android
+  </div>
+</Center>
 
 ---
 layout: section
