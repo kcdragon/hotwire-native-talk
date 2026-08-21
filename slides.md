@@ -21,10 +21,7 @@ addons:
 
 Mike Dalton
 
-<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
-  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
-  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
-</div>
+<QaQrCode v-drag="[800,400,140,150]" />
 
 ---
 layout: inline-image
@@ -36,10 +33,7 @@ imageClass: h-64 w-64 rounded-full object-cover
 
 <img v-drag="[316,284,120,75]" src="/images/mustache.png" alt="Mustache" />
 
-<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
-  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
-  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
-</div>
+<QaQrCode v-drag="[800,400,140,150]" />
 
 <!--
 Hi! I'm Mike. You may know me as this floating head from social media. I've had a couple people mention it doesn't quite look like me anymore so I've updated it to include a mustache.
@@ -61,10 +55,7 @@ class: text-center
   <FancyArrow from="(786,164)" to="(720,250)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="0.2" seed="7" />
 </div>
 
-<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
-  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
-  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
-</div>
+<QaQrCode v-drag="[800,400,140,150]" />
 
 <!--
 I live in Philadelphia on the eastern coast of the United States which is in between New York City and Washington DC.
@@ -190,10 +181,7 @@ layout: section
 
 # Hotwire
 
-<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
-  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
-  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
-</div>
+<QaQrCode v-drag="[800,400,140,150]" />
 
 ---
 layout: image-right
@@ -589,10 +577,7 @@ layout: section
 
 # Project Setup
 
-<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
-  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
-  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
-</div>
+<QaQrCode v-drag="[800,400,140,150]" />
 
 <!--
 How do you get started with a Hotwire Native project?
@@ -900,10 +885,7 @@ layout: section
 
 # Screen Navigation
 
-<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
-  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
-  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
-</div>
+<QaQrCode v-drag="[800,400,140,150]" />
 
 ---
 layout: two-cols
@@ -1003,10 +985,7 @@ layout: section
 
 # Path Configuration
 
-<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
-  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
-  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
-</div>
+<QaQrCode v-drag="[800,400,140,150]" />
 
 ---
 layout: two-cols
@@ -1125,10 +1104,7 @@ layout: section
 
 # Navigation Bar Title
 
-<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
-  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
-  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
-</div>
+<QaQrCode v-drag="[800,400,140,150]" />
 
 ---
 
@@ -1233,10 +1209,7 @@ layout: section
 
 # Native Tab Bar
 
-<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
-  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
-  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
-</div>
+<QaQrCode v-drag="[800,400,140,150]" />
 
 ---
 layout: two-cols
@@ -1655,10 +1628,7 @@ layout: section
 
 # Bridge Components
 
-<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
-  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
-  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
-</div>
+<QaQrCode v-drag="[800,400,140,150]" />
 
 ---
 
@@ -1918,10 +1888,7 @@ layout: section
 
 # Native Components
 
-<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
-  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
-  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
-</div>
+<QaQrCode v-drag="[800,400,140,150]" />
 
 ---
 layout: two-cols
@@ -2251,10 +2218,7 @@ layout: section
 
 # OAuth
 
-<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
-  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
-  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
-</div>
+<QaQrCode v-drag="[800,400,140,150]" />
 
 ---
 layout: title-left
@@ -2834,10 +2798,7 @@ layout: section
 
 # Review
 
-<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
-  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
-  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
-</div>
+<QaQrCode v-drag="[800,400,140,150]" />
 
 ---
 layout: statement
