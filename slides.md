@@ -2376,6 +2376,60 @@ class: gap-4 text-xs
 
 # OAuth
 
+## Bridge component, Android
+
+<br>
+
+<CodeCaption caption="components/SignInWithOauthComponent.kt" size="xxs">
+
+```kotlin
+class SignInWithOauthComponent(
+    name: String,
+    private val delegate: BridgeDelegate<HotwireDestination>
+) : BridgeComponent<HotwireDestination>(name, delegate) {
+    override fun onReceive(message: Message) {
+        when (message.event) {
+            "click" -> handleClick(message)
+        }
+    }
+
+    private fun handleClick(message: Message) {
+        val data = message.data<MessageData>() ?: return
+        tokenAuthPath = data.tokenAuthPath
+
+        val startUrl = "$baseUrl${data.startPath}".toUri()
+        CustomTabsIntent.Builder().setShowTitle(true).build()
+            .launchUrl(fragment.requireContext(), startUrl)
+    }
+
+    @Serializable
+    data class MessageData(
+        @SerialName("startPath") val startPath: String,
+        @SerialName("tokenAuthPath") val tokenAuthPath: String
+    )
+}
+```
+
+</CodeCaption>
+
+::right::
+
+<Center>
+  <img
+    src="/images/oauth-custom-tab-android.png"
+    alt="The Google sign in page presented in a Chrome Custom Tab over the app"
+    class="max-h-100 rounded-lg shadow-lg" />
+</Center>
+
+<FancyArrow from="(352,358)" to="(620,358)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="-0.22" seed="29" />
+
+---
+layout: two-cols
+class: gap-4 text-xs
+---
+
+# OAuth
+
 ## Starting the flow
 
 <br>
@@ -2464,7 +2518,7 @@ class: gap-4 text-xs
 
 # OAuth
 
-## Catching the redirect
+## Catching the redirect, iOS
 
 <br>
 
@@ -2513,7 +2567,7 @@ class: gap-4 text-xs
 
 # OAuth
 
-## Signing in the web view
+## Web view sign in, iOS
 
 <br>
 
@@ -2566,7 +2620,7 @@ class: gap-4 text-xs
 
 # OAuth
 
-## Refreshing the app
+## Refreshing the app, iOS
 
 <br>
 
