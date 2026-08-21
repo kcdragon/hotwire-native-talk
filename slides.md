@@ -2501,16 +2501,7 @@ end
 
 ::right::
 
-<Center>
-  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
-    <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
-    <div class="text-sm opacity-80">oauth-apple-consent.mp4</div>
-  </div>
-</Center>
-
-<!--
-TODO record video: oauth-apple-consent.mp4 — the Safari sheet landing on Apple's consent screen.
--->
+<DemoVideo src="/videos/oauth-apple-consent.mp4" />
 
 ---
 layout: two-cols
