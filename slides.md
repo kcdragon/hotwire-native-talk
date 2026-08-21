@@ -2342,7 +2342,7 @@ class: gap-4 text-xs
 
 # OAuth
 
-## Bridge component — web
+## Bridge component, Web
 
 <br>
 
@@ -2388,7 +2388,7 @@ class: gap-4 text-xs
 
 # OAuth
 
-## Bridge component — iOS
+## Bridge component, iOS
 
 <br>
 
