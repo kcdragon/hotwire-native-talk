@@ -557,6 +557,12 @@ image: /images/hotwire-native-history.png
 - Strada released in 2023
 - Rebranded Hotwire Native in 2024
 
+<!--
+Like Turbo and Stimulus, Hotwire Native was created by 37signals.
+
+You may know it by a couple different names because it's gone through some name changes since being introduced.
+-->
+
 ---
 
 # Hotwire Native
@@ -568,6 +574,16 @@ image: /images/hotwire-native-history.png
 - You have the need for a web app, iOS and Android app
 - You want to build with Hotwire and Turbo
 - You're comfortable being an early adopter
+
+<!--
+Before choosing Hotwire Native, there are several things to consider.
+
+It's a great choice if you have a need for a web app as well as mobile apps.
+
+In addition to using Rails, you need to be using Hotwire and Turbo instead of another front end framework like React.
+
+You should be comfortable being an early adopter since it's still relatively new.
+-->
 
 ---
 
