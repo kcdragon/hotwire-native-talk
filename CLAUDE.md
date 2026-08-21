@@ -17,8 +17,20 @@ there rather than inventing sample code.
   `<div class="text-xs opacity-60 text-center">app/…/file.rb</div>`
 - Dense code slides shrink via `class: text-xs` / `text-sm` in the slide
   frontmatter; prefer trimming code over shrinking further.
-- Videos were remuxed from Keynote's .mov (no re-encode), embedded with
-  `<video src="/videos/x.mp4" controls muted loop class="max-h-110 …" />`.
+- Videos are embedded with the `DemoVideo` component, which autoplays muted and
+  loops: `<DemoVideo src="/videos/x.mp4" />`. Pass `:autoplay="false"` for the
+  older click-to-play style, `maxH="max-h-105"` to override the height.
+- **Videos MUST be H.264, never HEVC/H.265.** Simulator recordings (RocketSim,
+  Xcode) and Keynote exports come out HEVC, which Safari and Chrome-on-macOS
+  play locally but which renders as a blank white box in the deployed deck and
+  in any browser without hardware HEVC. Transcode every new video before
+  committing it:
+  `ffmpeg -i in.mp4 -c:v libx264 -profile:v high -pix_fmt yuv420p -crf 23 \`
+  `  -preset slow -movflags +faststart -an public/videos/x.mp4`
+  Check an existing file with
+  `ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of csv=p=0 f.mp4`.
+  The `-an` drops the audio track (all deck videos are muted), and H.264 also
+  cuts these recordings to roughly a third of their HEVC size.
 - Full-bleed screenshots use `layout: image` with `backgroundSize: contain`.
 - To free-position an element (badges, QR codes, callouts), prefer Slidev's
   `v-drag="[x,y,w,h]"` over `absolute`/`fixed` UnoCSS classes. `v-drag`
