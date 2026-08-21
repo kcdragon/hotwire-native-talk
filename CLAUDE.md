@@ -20,6 +20,11 @@ there rather than inventing sample code.
 - Videos were remuxed from Keynote's .mov (no re-encode), embedded with
   `<video src="/videos/x.mp4" controls muted loop class="max-h-110 …" />`.
 - Full-bleed screenshots use `layout: image` with `backgroundSize: contain`.
+- To free-position an element (badges, QR codes, callouts), prefer Slidev's
+  `v-drag="[x,y,w,h]"` over `absolute`/`fixed` UnoCSS classes. `v-drag`
+  coordinates are in the slide's own scaled space, so the element stays put and
+  scale-to-fit and won't trip the overflow checker the way absolute positioning
+  (which escapes the scaled container) does.
 - Presenter notes are HTML comments (`<!-- … -->`) at the end of a slide.
 
 ## Deployment
