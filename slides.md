@@ -2518,6 +2518,46 @@ class: gap-4 text-xs
 
 # OAuth
 
+## Exchanging the token
+
+<br>
+
+<CodeCaption caption="app/controllers/oauth_sessions_controller.rb" size="xs">
+
+```ruby
+def authenticate_by_token
+  user = User.find_signed(params[:token], purpose: :native_auth)
+
+  if user
+    start_new_session_for user
+    redirect_to after_authentication_url
+  else
+    redirect_to welcome_path, alert: UNABLE_TO_SIGN_IN
+  end
+end
+```
+
+</CodeCaption>
+
+<CodeCaption caption="config/routes.rb" size="xs">
+
+```ruby
+get "token", to: "oauth_sessions#authenticate_by_token"
+```
+
+</CodeCaption>
+
+::right::
+
+<DemoVideo src="/videos/oauth-callback-redirect.mp4" />
+
+---
+layout: two-cols
+class: gap-4 text-xs
+---
+
+# OAuth
+
 ## Catching the redirect, iOS
 
 <br>
@@ -2620,36 +2660,84 @@ class: gap-4 text-xs
 
 # OAuth
 
-## Refreshing the app, iOS
+## Catching the redirect, Android
 
 <br>
 
-<CodeCaption caption="app/controllers/concerns/authentication.rb" size="xxs">
+<CodeCaption caption="MainActivity.kt" size="xxs">
 
-```ruby {2-3}
-def after_authentication_url
-  if hotwire_native_app?
-    hotwire_native_refresh_path
-  else
-    session.delete(:return_to_after_authenticating) || entries_path
-  end
-end
+```kotlin
+override fun onNewIntent(intent: Intent) {
+    super.onNewIntent(intent)
+    setIntent(intent)
+    handleIntent(intent)
+}
+
+private fun handleIntent(intent: Intent) {
+    if (intent.action == Intent.ACTION_VIEW && intent.data != null) {
+        handleDeepLink(intent.data!!)
+    }
+}
+
+private fun handleDeepLink(uri: Uri) {
+    when (uri.host) {
+        "auth-callback" -> {
+            val token = uri.getQueryParameter("token")
+            authTokenLiveData.postValue(token)
+        }
+    }
+}
 ```
 
 </CodeCaption>
 
-<CodeCaption caption="SceneController.swift" size="xxs">
+<CodeCaption caption="AndroidManifest.xml" size="xxs">
 
-```swift
-func handle(proposal: VisitProposal,
-            from navigator: Navigator) -> ProposalResult {
-    switch proposal.viewController {
-    case RefreshAppViewController.pathConfigurationIdentifier:
-        tabBarController.load(HotwireTab.all)
-        return .accept
-    default:
-        return .accept
+```xml
+<intent-filter>
+  <action android:name="android.intent.action.VIEW" />
+  <category android:name="android.intent.category.DEFAULT" />
+  <category android:name="android.intent.category.BROWSABLE" />
+  <data android:scheme="rssreader" android:host="auth-callback" />
+</intent-filter>
+```
+
+</CodeCaption>
+
+::right::
+
+<DemoVideo src="/videos/oauth-callback-redirect-android.mp4" />
+
+---
+layout: two-cols
+class: gap-4 text-xs
+---
+
+# OAuth
+
+## Web view sign in, Android
+
+<br>
+
+<CodeCaption caption="components/SignInWithOauthComponent.kt" size="xs">
+
+```kotlin
+private fun observeAuthCompletion() {
+    MainActivity.authTokenLiveData.observe(fragment.viewLifecycleOwner) {
+        token -> authenticateWithToken(token)
     }
+}
+
+private fun authenticateWithToken(token: String?) {
+    val navigator = fragment?.navigator ?: return
+
+    // Route in the web view so the cookie lands there
+    val tokenLoginUrl = "$baseUrl$tokenAuthPath".toUri()
+        .buildUpon()
+        .appendQueryParameter("token", token)
+        .build()
+
+    navigator.route(tokenLoginUrl.toString())
 }
 ```
 
@@ -2657,7 +2745,7 @@ func handle(proposal: VisitProposal,
 
 ::right::
 
-<DemoVideo src="/videos/oauth-callback-redirect.mp4" />
+<DemoVideo src="/videos/oauth-callback-redirect-android.mp4" />
 
 ---
 layout: section
