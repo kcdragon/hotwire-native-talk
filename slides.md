@@ -21,6 +21,11 @@ addons:
 
 Mike Dalton
 
+<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
+  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
+  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
+</div>
+
 ---
 layout: inline-image
 text: Hi, I'm Mike
@@ -30,6 +35,11 @@ imageClass: h-64 w-64 rounded-full object-cover
 ---
 
 <img v-drag="[316,284,120,75]" src="/images/mustache.png" alt="Mustache" />
+
+<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
+  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
+  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
+</div>
 
 <!--
 Hi! I'm Mike. You may know me as this floating head from social media. I've had a couple people mention it doesn't quite look like me anymore so I've updated it to include a mustache.
@@ -49,6 +59,11 @@ class: text-center
 
 <div class="absolute inset-0 pointer-events-none" style="z-index: 200">
   <FancyArrow from="(786,164)" to="(720,250)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="0.2" seed="7" />
+</div>
+
+<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
+  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
+  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
 </div>
 
 <!--
@@ -168,6 +183,17 @@ title: Calendar Vision screenshots
 <!--
 Calendar Vision is a Hotwire Native app that allows people to take a picture of an image and easily extract events from that photo to add to your favorite calendar app.
 -->
+
+---
+layout: section
+---
+
+# Hotwire
+
+<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
+  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
+  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
+</div>
 
 ---
 layout: image-right
@@ -563,6 +589,11 @@ layout: section
 
 # Project Setup
 
+<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
+  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
+  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
+</div>
+
 <!--
 How do you get started with a Hotwire Native project?
 -->
@@ -869,6 +900,11 @@ layout: section
 
 # Screen Navigation
 
+<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
+  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
+  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
+</div>
+
 ---
 layout: two-cols
 class: gap-4
@@ -966,6 +1002,11 @@ layout: section
 ---
 
 # Path Configuration
+
+<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
+  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
+  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
+</div>
 
 ---
 layout: two-cols
@@ -1084,6 +1125,11 @@ layout: section
 
 # Navigation Bar Title
 
+<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
+  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
+  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
+</div>
+
 ---
 
 # Navigation Bar Title
@@ -1186,6 +1232,11 @@ layout: section
 ---
 
 # Native Tab Bar
+
+<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
+  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
+  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
+</div>
 
 ---
 layout: two-cols
@@ -1604,6 +1655,11 @@ layout: section
 
 # Bridge Components
 
+<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
+  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
+  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
+</div>
+
 ---
 
 # Bridge Components
@@ -1861,6 +1917,11 @@ layout: section
 ---
 
 # Native Components
+
+<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
+  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
+  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
+</div>
 
 ---
 layout: two-cols
@@ -2189,6 +2250,11 @@ layout: section
 ---
 
 # OAuth
+
+<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
+  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
+  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
+</div>
 
 ---
 layout: title-left
@@ -2767,6 +2833,11 @@ layout: section
 ---
 
 # Review
+
+<div v-drag="[800,400,140,150]" class="flex flex-col items-center gap-2">
+  <img src="/images/qr-qa.png" class="w-full rounded shadow-lg bg-white p-2" />
+  <div class="text-xs opacity-80">Questions? · Session Q&amp;A</div>
+</div>
 
 ---
 layout: statement
