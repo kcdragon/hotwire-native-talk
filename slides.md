@@ -2388,7 +2388,7 @@ class: gap-4 text-xs
 
 <CodeCaption caption="app/controllers/oauth_sessions_controller.rb" size="xs">
 
-```ruby {2,12-13}
+```ruby
 def create
   state = OauthState.generate(platform: params[:platform])
 
@@ -2413,55 +2413,7 @@ end
 
 <DemoVideo src="/videos/oauth-apple-consent.mp4" />
 
----
-layout: two-cols
-class: gap-4 text-xs
----
-
-# OAuth
-
-## Signed state
-
-<br>
-
-<CodeCaption caption="app/models/oauth_state.rb" size="xs">
-
-```ruby {7,16-18}
-class OauthState
-  PURPOSE = :oauth_state
-
-  attr_reader :platform, :nonce
-
-  def self.generate(platform:)
-    new(platform: platform.presence || "web",
-        nonce: SecureRandom.urlsafe_base64(16))
-  end
-
-  def self.parse(message)
-    data = verifier.verified(message.to_s, purpose: PURPOSE)
-    new(platform: data["platform"], nonce: data["nonce"]) if data
-  end
-
-  def native?
-    platform == "native"
-  end
-end
-```
-
-</CodeCaption>
-
-::right::
-
-<Center>
-  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
-    <div class="text-lg font-bold">SCREENSHOT PLACEHOLDER</div>
-    <div class="text-sm opacity-80">oauth-state-param.png</div>
-  </div>
-</Center>
-
-<!--
-TODO screenshot: oauth-state-param.png — the authorize URL with the signed state parameter.
--->
+<FancyArrow from="(318,301)" to="(600,255)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="-0.18" seed="23" />
 
 ---
 layout: two-cols
@@ -2507,16 +2459,9 @@ end
 
 ::right::
 
-<Center>
-  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
-    <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
-    <div class="text-sm opacity-80">oauth-callback-redirect.mp4</div>
-  </div>
-</Center>
+<DemoVideo src="/videos/oauth-callback-redirect.mp4" />
 
-<!--
-TODO record video: oauth-callback-redirect.mp4 — Apple returning and the app coming back to the front.
--->
+<FancyArrow from="(377,396)" to="(600,388)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="0.15" seed="29" />
 
 ---
 layout: two-cols
@@ -2565,16 +2510,7 @@ func scene(_ scene: UIScene,
 
 ::right::
 
-<Center>
-  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
-    <div class="text-lg font-bold">SCREENSHOT PLACEHOLDER</div>
-    <div class="text-sm opacity-80">oauth-url-scheme.png</div>
-  </div>
-</Center>
-
-<!--
-TODO screenshot: oauth-url-scheme.png — the Xcode console logging the rssreader://auth-callback URL.
--->
+<DemoVideo src="/videos/oauth-callback-redirect.mp4" />
 
 ---
 layout: two-cols
@@ -2627,16 +2563,7 @@ end
 
 ::right::
 
-<Center>
-  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
-    <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
-    <div class="text-sm opacity-80">oauth-webview-signin.mp4</div>
-  </div>
-</Center>
-
-<!--
-TODO record video: oauth-webview-signin.mp4 — Safari dismissing and the web view loading signed in.
--->
+<DemoVideo src="/videos/oauth-callback-redirect.mp4" />
 
 ---
 layout: two-cols
@@ -2682,16 +2609,7 @@ func handle(proposal: VisitProposal,
 
 ::right::
 
-<Center>
-  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
-    <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
-    <div class="text-sm opacity-80">oauth-tabbar-rebuild.mp4</div>
-  </div>
-</Center>
-
-<!--
-TODO record video: oauth-tabbar-rebuild.mp4 — the tab bar rebuilding with the signed-in tabs.
--->
+<DemoVideo src="/videos/oauth-callback-redirect.mp4" />
 
 ---
 layout: section
