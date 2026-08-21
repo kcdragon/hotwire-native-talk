@@ -2373,15 +2373,13 @@ export default class extends BridgeComponent {
 ::right::
 
 <Center>
-  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
-    <div class="text-lg font-bold">SCREENSHOT PLACEHOLDER</div>
-    <div class="text-sm opacity-80">oauth-bridge-connected.png</div>
-  </div>
+  <img
+    src="/images/oauth-sign-in-button.png"
+    alt="The app's sign in screen, with a Sign in with Apple button"
+    class="max-h-100 rounded-lg shadow-lg" />
 </Center>
 
-<!--
-TODO screenshot: oauth-bridge-connected.png — the bridge debug log showing the component connecting.
--->
+<FancyArrow from="(616,312)" to="(210,290)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="0.18" seed="13" />
 
 ---
 layout: two-cols
@@ -2429,15 +2427,13 @@ Hotwire.registerBridgeComponents([
 ::right::
 
 <Center>
-  <div class="border-2 border-dashed border-red-400 rounded-lg px-6 py-12 text-center text-red-500">
-    <div class="text-lg font-bold">VIDEO PLACEHOLDER</div>
-    <div class="text-sm opacity-80">oauth-safari-sheet.mp4</div>
-  </div>
+  <img
+    src="/images/oauth-safari-sheet.png"
+    alt="The Sign in with Apple page presented in a Safari sheet over the app"
+    class="max-h-100 rounded-lg shadow-lg" />
 </Center>
 
-<!--
-TODO record video: oauth-safari-sheet.mp4 — tapping the button and the Safari sheet sliding up.
--->
+<FancyArrow from="(348,310)" to="(610,278)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="-0.18" seed="17" />
 
 ---
 layout: two-cols
