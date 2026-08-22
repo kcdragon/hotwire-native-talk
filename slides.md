@@ -455,6 +455,10 @@ export default class extends Controller {
 
 <DemoVideo src="/videos/stimulus-demo.mp4" maxH="max-h-105" />
 
+<div v-drag="[440,430,120,30]" class="text-sm font-bold text-red-600 whitespace-nowrap text-right">Toast</div>
+
+<FancyArrow from="(565,445)" to="(650,455)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="0.2" seed="13" />
+
 <!--
 When Turbo isn't enough and you need some custom Javascript, you can use Stimulus.
 
