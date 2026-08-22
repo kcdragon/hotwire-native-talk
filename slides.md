@@ -108,16 +108,6 @@ I work at a US-based company called Triumph.
 
 ---
 layout: image
-image: /images/triumph-bus.jpg
-backgroundSize: cover
-title: Triumph matatu in Nairobi
----
-
-<!--
--->
-
----
-layout: image
 image: /images/triumph-site-1.png
 backgroundSize: contain
 title: Triumph website
@@ -131,16 +121,15 @@ title: Triumph website (cont.)
 ---
 
 ---
-layout: statement
+layout: image
+image: /images/triumph-bus.jpg
+backgroundSize: cover
+title: Triumph matatu in Nairobi
 ---
 
-# triumph.com 🙅
-
----
-layout: statement
----
-
-# triumph.io 👍
+<!--
+Not this Triumph
+-->
 
 ---
 layout: image
