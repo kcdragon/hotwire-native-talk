@@ -477,6 +477,8 @@ layout: section
 
 # Mobile Frameworks
 
+<QaQrCode v-drag="[800,400,140,150]" />
+
 ---
 
 # Native Alternatives
@@ -585,6 +587,8 @@ layout: section
 
 # Who should use it
 
+<QaQrCode v-drag="[800,400,140,150]" />
+
 <!--
 Before choosing Hotwire Native, there are several things to consider.
 -->
@@ -624,6 +628,8 @@ layout: section
 ---
 
 # How does it work
+
+<QaQrCode v-drag="[800,400,140,150]" />
 
 ---
 layout: title-left
@@ -1562,6 +1568,8 @@ layout: section
 ---
 
 # Calendar Switcher
+
+<QaQrCode v-drag="[800,400,140,150]" />
 
 ---
 layout: two-cols
