@@ -1553,79 +1553,72 @@ layout: section
 <QaQrCode v-drag="[800,400,140,150]" />
 
 ---
+layout: title-left
+---
+
+::title::
+
+# Calendar Switcher
+
+## HTML Dialog
+
+::default::
+
+<Center>
+  <DemoVideo src="/videos/calendar-switcher-html-dialog.mp4" />
+</Center>
+
+---
+layout: title-left
+---
+
+::title::
+
+# Calendar Switcher
+
+## Native Modal
+
+::default::
+
+<Center>
+  <DemoVideo src="/videos/calendar-switcher-native-modal.mp4" />
+</Center>
+
+
+---
 layout: two-cols
+class: gap-4 text-sm
 ---
 
 # Calendar Switcher
 
-## Web
+## Web Implementation
 
-::right::
+<br>
 
-<DemoVideo src="/videos/calendar-switcher-web.mp4" />
-
----
-layout: two-cols
----
-
-# Calendar Switcher
-
-## iOS App (HTML Dialog)
-
-::right::
-
-<DemoVideo src="/videos/calendar-switcher-html-dialog.mp4" />
-
----
-layout: two-cols
----
-
-# Calendar Switcher
-
-## iOS App (Native Modal)
-
-::right::
-
-<DemoVideo src="/videos/calendar-switcher-native-modal.mp4" />
-
----
-layout: two-cols
-class: gap-4 text-xs
----
-
-# Web Implementation
-
-<div class="mt-8" />
+<CodeCaption caption="app/views/calendars/show.html.erb" size="sm">
 
 ```erb
-<%= link_to calendars_path,
-    data: {
-      turbo_stream: true
-    } do %>
+<%= link_to calendars_path, data: { turbo_stream: true } do %>
   <%= render "heroicons/arrows_up_down" %>
 <% end %>
 ```
 
-<div class="text-xs opacity-60 text-center">app/views/calendars/show.html.erb</div>
+</CodeCaption>
 
-::right::
-
-<div class="mt-14" />
+<CodeCaption caption="app/controllers/calendars_controller.rb" size="sm">
 
 ```ruby
 class CalendarsController < ApplicationController
   def index
     @calendars = current_user.calendars
-    respond_to do |format|
-      format.turbo_stream
-    end
   end
 end
 ```
 
-<div class="text-xs opacity-60 text-center">app/controllers/calendars_controller.rb</div>
+</CodeCaption>
 
-<br>
+<CodeCaption caption="app/views/calendars/index.turbo_stream.erb" size="sm">
 
 ```erb
 <%= turbo_stream.replace "dialog-container" do %>
@@ -1637,29 +1630,66 @@ end
 <% end %>
 ```
 
-<div class="text-xs opacity-60 text-center">app/views/calendars/index.turbo_stream.erb</div>
+</CodeCaption>
+
+::right::
+
+<DemoVideo src="/videos/calendar-switcher-html-dialog.mp4" />
+
+---
+layout: two-cols
+class: gap-4 text-sm
+---
+
+# Calendar Switcher
+
+## Native Implementation
+
+<br>
+
+<CodeCaption caption="app/views/calendars/show.html.erb" size="sm">
+
+```erb {2-4}
+<%= link_to calendars_path,
+            data: {
+              turbo_stream: !hotwire_native_app?
+            } do %>
+  <%= render "heroicons/arrows_up_down" %>
+<% end %>
+```
+
+</CodeCaption>
+
+<br>
+
+<CodeCaption caption="app/views/calendars/index.html.erb" size="xs">
+
+```erb
+<%= render "index", calendars: @calendars %>
+```
+
+</CodeCaption>
+
+::right::
+
+<DemoVideo src="/videos/calendar-switcher-native-modal.mp4" />
 
 ---
 layout: two-cols
 class: gap-4 text-xs
 ---
 
-# Native Implementation
+# Calendar Switcher
 
-```erb
-<%= link_to calendars_path,
-    data: {
-      turbo_stream: !hotwire_native_app?
-    } do %>
-  <%= render "heroicons/arrows_up_down" %>
-<% end %>
-```
+## Native Implementation
 
-<div class="text-xs opacity-60 text-center">app/views/calendars/show.html.erb</div>
+<br>
+
+<CodeCaption caption="app/controllers/hotwire_native/configurations_controller.rb" size="xs">
 
 ```ruby
-class ConfigurationsController < ApplicationController
-  def ios_v1
+class HotwireNative::ConfigurationsController < ApplicationController
+  def android_v1
     render json: {
       rules: [
         {
@@ -1668,7 +1698,6 @@ class ConfigurationsController < ApplicationController
           ],
           properties: {
             context: "modal",
-            presentation: "default",
             pull_to_refresh_enabled: false
           }
         }
@@ -1678,33 +1707,11 @@ class ConfigurationsController < ApplicationController
 end
 ```
 
-<div class="text-xs opacity-60 text-center">app/controllers/configurations_controller.rb</div>
+</CodeCaption>
 
 ::right::
 
-<div class="mt-14" />
-
-```ruby
-class CalendarsController < ApplicationController
-  def index
-    @calendars = current_user.calendars
-    respond_to do |format|
-      format.html
-      format.turbo_stream
-    end
-  end
-end
-```
-
-<div class="text-xs opacity-60 text-center">app/controllers/calendars_controller.rb</div>
-
-<br>
-
-```erb
-<%= render "index", calendars: @calendars %>
-```
-
-<div class="text-xs opacity-60 text-center">app/views/calendars/index.html.erb</div>
+<DemoVideo src="/videos/calendar-switcher-native-modal.mp4" />
 
 ---
 layout: section
