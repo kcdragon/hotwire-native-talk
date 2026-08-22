@@ -580,39 +580,81 @@ You may know it by a couple different names because it's gone through some name 
 -->
 
 ---
+layout: section
+---
 
-# Hotwire Native
-
-## Who should use it
-
-<br>
-
-- You have the need for a web app, iOS and Android app
-- You want to build with Hotwire and Turbo
-- You're comfortable being an early adopter
+# Who should use it
 
 <!--
 Before choosing Hotwire Native, there are several things to consider.
+-->
 
+---
+layout: statement
+---
+
+# You need a web, iOS and Android app
+
+<!--
 It's a great choice if you have a need for a web app as well as mobile apps.
+-->
 
+---
+layout: statement
+---
+
+# You want to build with Hotwire and Turbo
+
+<!--
 In addition to using Rails, you need to be using Hotwire and Turbo instead of another front end framework like React.
+-->
 
+---
+layout: statement
+---
+
+# You're comfortable being an early adopter
+
+<!--
 You should be comfortable being an early adopter since it's still relatively new.
 -->
 
 ---
+layout: section
+---
 
-# Hotwire Native
+# How does it work
 
-## How does it work
+---
+layout: title-left
+---
 
-<br>
+::title::
 
-- Native navigation and animation
-- Embedded web browser
-- Doesn't look like a browser
-- Views look the same as the web
+# How does it work
+
+## Native navigation and animation
+
+::default::
+
+<DemoVideo src="/videos/nav-push-pop.mp4" maxH="max-h-100" />
+
+---
+layout: title-left
+---
+
+::title::
+
+# How does it work
+
+## Embedded web browser
+
+::default::
+
+<div class="flex gap-8 items-center justify-center">
+  <img src="/images/rss-reader-feeds-web.png" class="max-h-105 rounded shadow-lg" alt="RSS reader feeds in a browser" />
+  <img src="/images/rss-reader-feeds.png" class="max-h-105 rounded shadow-lg" alt="RSS reader feeds in the app" />
+</div>
 
 ---
 layout: section
