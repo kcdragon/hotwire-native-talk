@@ -383,6 +383,10 @@ end
 
 ```erb
 <%= turbo_stream.remove dom_id(@entry, :card) %>
+
+<%= turbo_stream.replace "entries_count" do %>
+  <%= render "entries/count", count: @entries_count %>
+<% end %>
 ```
 
 </CodeCaption>
