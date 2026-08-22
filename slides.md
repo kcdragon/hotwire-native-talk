@@ -1245,6 +1245,12 @@ class: gap-4 text-sm
   <img src="/images/navbar-title-tag.png" class="max-h-110 rounded shadow-lg" />
 </Center>
 
+<div v-drag="[440,100,110,30]" class="text-sm font-bold text-red-600 whitespace-nowrap text-right">Duplicate</div>
+
+<div class="absolute inset-0 pointer-events-none" style="z-index: 200">
+  <FancyArrow from="(548,118)" to="(615,140)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="-0.25" seed="17" />
+</div>
+
 ---
 layout: two-cols
 class: gap-4 text-xs
