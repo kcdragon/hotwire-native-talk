@@ -1564,9 +1564,7 @@ layout: title-left
 
 ::default::
 
-<Center>
-  <DemoVideo src="/videos/calendar-switcher-html-dialog.mp4" />
-</Center>
+<DemoVideo src="/videos/calendar-switcher-html-dialog.mp4" />
 
 ---
 layout: title-left
@@ -1580,9 +1578,7 @@ layout: title-left
 
 ::default::
 
-<Center>
-  <DemoVideo src="/videos/calendar-switcher-native-modal.mp4" />
-</Center>
+<DemoVideo src="/videos/calendar-switcher-native-modal.mp4" />
 
 
 ---
@@ -1983,8 +1979,6 @@ class: gap-4
 <CodeCaption caption="app/javascript/controllers/bridge/add_to_calendar_controller.js" size="sm">
 
 ```js
-import { BridgeComponent } from "@hotwired/hotwire-native-bridge"
-
 export default class extends BridgeComponent {
   static component = "add-to-calendar"
   static values = {
@@ -2019,11 +2013,7 @@ export default class extends BridgeComponent {
 
 ::right::
 
-<Center>
-  <div class="w-45 h-90 border-2 border-dashed rounded-lg opacity-40 flex items-center justify-center text-center text-sm p-4">
-    TODO: screenshot of the Add to Calendar button on the web
-  </div>
-</Center>
+<DemoVideo src="/videos/add-to-calendar-ios.mp4" maxH="max-h-100" />
 
 ---
 layout: two-cols
@@ -2038,10 +2028,6 @@ class: gap-4
 
 ```swift
 final class AddToCalendarComponent: BridgeComponent {
-    private var viewController: UIViewController? {
-        delegate?.destination as? UIViewController
-    }
-
     override func onReceive(message: Message) {
         guard message.event == "add",
               let calendarEvent: CalendarEvent = message.data()
@@ -2052,18 +2038,22 @@ final class AddToCalendarComponent: BridgeComponent {
         }
     }
 
-    ...
+    private func presentEventEditor(calendarEvent: CalendarEvent) async {
+        let event = EKEventBuilder.makeEvent(
+            from: calendarEvent,
+            eventStore: CalendarEventStore.shared
+        )
+    
+        await MainActor.run {
+            let editDelegate = EventEditDelegate()
+            let eventViewController = EKEventEditViewController()
+            eventViewController.event = event
+            eventViewController.eventStore = CalendarEventStore.shared
+            eventViewController.editViewDelegate = editDelegate
+            viewController?.present(eventViewController, animated: true)
+        }
+    }
 }
-```
-
-</CodeCaption>
-
-<CodeCaption caption="AppDelegate.swift" size="xs">
-
-```swift
-Hotwire.registerBridgeComponents([
-    AddToCalendarComponent.self
-])
 ```
 
 </CodeCaption>
@@ -2072,53 +2062,9 @@ Hotwire.registerBridgeComponents([
 
 <DemoVideo src="/videos/add-to-calendar-ios.mp4" maxH="max-h-100" />
 
----
-layout: two-cols
-class: gap-4
----
-
-# Add to Calendar
-
-## iOS (continued)
-
-<CodeCaption caption="AddToCalendarComponent.swift" size="xs">
-
-```swift
-private func presentEventEditor(calendarEvent: CalendarEvent) async {
-    let event = EKEventBuilder.makeEvent(
-        from: calendarEvent,
-        eventStore: CalendarEventStore.shared
-    )
-
-    await MainActor.run {
-        let editDelegate = EventEditDelegate()
-        let eventViewController = EKEventEditViewController()
-        eventViewController.event = event
-        eventViewController.eventStore = CalendarEventStore.shared
-        eventViewController.editViewDelegate = editDelegate
-        viewController?.present(eventViewController, animated: true)
-    }
-}
-
-private final class EventEditDelegate: NSObject, EKEventEditViewDelegate {
-    func eventEditViewController(
-        _ controller: EKEventEditViewController,
-        didCompleteWith action: EKEventEditViewAction
-    ) {
-        controller.dismiss(animated: true)
-    }
-}
-```
-
-</CodeCaption>
-
-::right::
-
-<Center>
-  <div class="w-45 h-90 border-2 border-dashed rounded-lg opacity-40 flex items-center justify-center text-center text-sm p-4">
-    TODO: screenshot of the native event editor
-  </div>
-</Center>
+<div class="absolute inset-0 pointer-events-none" style="z-index: 200">
+  <FancyArrow from="(430,405)" to="(600,300)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="0.25" seed="19" />
+</div>
 
 ---
 layout: two-cols
@@ -2133,8 +2079,7 @@ class: gap-4
 
 ```kotlin
 class AddToCalendarComponent(
-    name: String,
-    private val bridgeDelegate: BridgeDelegate<HotwireDestination>
+    ...
 ) : BridgeComponent<HotwireDestination>(name, bridgeDelegate) {
     override fun onReceive(message: Message) {
         when (message.event) {
@@ -2146,21 +2091,20 @@ class AddToCalendarComponent(
         val calendarEvent = message.data<CalendarEvent>()
         val activity = bridgeDelegate.destination
             .fragment.requireActivity()
-        openCalendarEventInIntent(calendarEvent, activity)
+        var intent = Intent(Intent.ACTION_INSERT)
+            .setData(CalendarContract.Events.CONTENT_URI)
+            .putExtra(CalendarContract.Events.TITLE, calendarEvent.name)
+            .putExtra(
+                CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                calendarEvent.startsAtInMillisecondsSinceEpoch
+            )
+            .putExtra(
+                CalendarContract.EXTRA_EVENT_END_TIME,
+                calendarEvent.endsAtInMillisecondsSinceEpoch
+            )
+        activity.startActivity(intent)
     }
-
-    ...
 }
-```
-
-</CodeCaption>
-
-<CodeCaption caption="MainApplication.kt" size="xs">
-
-```kotlin
-Hotwire.registerBridgeComponents(
-    BridgeComponentFactory("add-to-calendar", ::AddToCalendarComponent)
-)
 ```
 
 </CodeCaption>
@@ -2169,46 +2113,9 @@ Hotwire.registerBridgeComponents(
 
 <DemoVideo src="/videos/add-to-calendar-android.mp4" maxH="max-h-100" />
 
----
-layout: two-cols
-class: gap-4
----
-
-# Add to Calendar
-
-## Android (continued)
-
-<CodeCaption caption="AddToCalendarComponent.kt" size="xs">
-
-```kotlin
-private fun openCalendarEventInIntent(
-    calendarEvent: CalendarEvent,
-    activity: android.app.Activity
-) {
-    var intent = Intent(Intent.ACTION_INSERT)
-        .setData(CalendarContract.Events.CONTENT_URI)
-        .putExtra(CalendarContract.Events.TITLE, calendarEvent.name)
-        .putExtra(
-            CalendarContract.EXTRA_EVENT_BEGIN_TIME,
-            calendarEvent.startsAtInMillisecondsSinceEpoch
-        )
-        .putExtra(
-            CalendarContract.EXTRA_EVENT_END_TIME,
-            calendarEvent.endsAtInMillisecondsSinceEpoch
-        )
-    activity.startActivity(intent)
-}
-```
-
-</CodeCaption>
-
-::right::
-
-<Center>
-  <div class="w-45 h-90 border-2 border-dashed rounded-lg opacity-40 flex items-center justify-center text-center text-sm p-4">
-    TODO: screenshot of the calendar intent on Android
-  </div>
-</Center>
+<div class="absolute inset-0 pointer-events-none" style="z-index: 200">
+  <FancyArrow from="(430,430)" to="(600,310)" color="#dc2626" width="2.5" head-size="18" roughness="1.2" arc="0.25" seed="23" />
+</div>
 
 ---
 layout: section
