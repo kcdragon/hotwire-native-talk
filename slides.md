@@ -165,6 +165,18 @@ Calendar Vision is a Hotwire Native app that allows people to take a picture of 
 -->
 
 ---
+layout: title-left
+---
+
+::title::
+
+# RSS Reader
+
+::default::
+
+<img src="/images/rss-reader-feeds.png" class="max-h-110 rounded shadow-lg" alt="RSS reader feeds screen" />
+
+---
 layout: section
 ---
 
