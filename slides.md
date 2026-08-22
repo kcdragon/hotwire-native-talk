@@ -541,6 +541,13 @@ Besides Hotwire Native, there are many cross platform frameworks.
 
 ---
 layout: image
+image: /images/ruby-native.png
+backgroundSize: contain
+title: Ruby Native
+---
+
+---
+layout: image
 image: /images/hotwire-native-history.png
 backgroundSize: contain
 title: Hotwire Native
