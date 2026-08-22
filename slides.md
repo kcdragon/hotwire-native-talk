@@ -1359,7 +1359,7 @@ extension HotwireTab {
 
 <CodeCaption caption="SceneController.swift" size="xs">
 
-```swift
+```swift {2-3,10}
 class SceneController: UIResponder {
     private lazy var tabBarController =
         HotwireTabBarController(navigatorDelegate: self)
@@ -1394,20 +1394,16 @@ class: gap-4
 <CodeCaption caption="Tabs.kt">
 
 ```kotlin
-private val feeds = HotwireBottomTab(
-    title = "Feeds",
-    iconResId = R.drawable.inbox_24px,
-    configuration = NavigatorConfiguration(
-        name = "feeds",
-        navigatorHostId = R.id.feeds_nav_host,
-        startLocation = "$baseUrl/feeds"
-    )
-)
-
-...
-
 val mainTabs = listOf(
-    feeds,
+    HotwireBottomTab(
+        title = "Feeds",
+        iconResId = R.drawable.inbox_24px,
+        configuration = NavigatorConfiguration(
+            name = "feeds",
+            navigatorHostId = R.id.feeds_nav_host,
+            startLocation = "$baseUrl/feeds"
+        )
+    ),
     ...
 )
 ```
@@ -1478,14 +1474,12 @@ class: gap-4
 
 <CodeCaption caption="MainActivity.kt" size="xs">
 
-```kotlin
+```kotlin {2-3,6,9-17}
 class MainActivity : HotwireActivity() {
     private lateinit var
       bottomNavigationController: HotwireBottomNavigationController
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        ...
-
         initializeBottomTabs()
     }
 
@@ -1518,13 +1512,11 @@ class: gap-4 text-sm
 
 <br>
 
-```erb
+```erb {4}
 <body>
-  ...
-
   <main>
     <% if authenticated? %>
-      <header class="hotwire-native:hidden flex ...">
+      <header class="hotwire-native:hidden flex">
         <button ...>
         </button>
       </header>
@@ -1532,8 +1524,6 @@ class: gap-4 text-sm
 
     <%= yield %>
   </main>
-
-  ...
 </body>
 ```
 
