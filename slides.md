@@ -139,6 +139,14 @@ title: Triumph website (triumph.io)
 ---
 
 ---
+layout: image
+image: /images/phillyrb.png
+backgroundSize: contain
+class: bg-center
+title: Philly.rb
+---
+
+---
 layout: inline-image
 text: Building Calendar Vision
 image: /images/calendar-vision-logo.png
