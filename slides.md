@@ -1332,50 +1332,29 @@ class: gap-4 text-sm
 
 <br />
 
+<CodeCaption caption="Tabs.swift" size="xxs">
+
 ```swift
 extension HotwireTab {
-    static let all: [HotwireTab] = {
-        var tabs: [HotwireTab] = [
-            .feeds,
-            ...
+    static var all: [HotwireTab] {
+        [
+          HotwireTab(
+              title: "Feeds",
+              image: .init(systemName: "tray")!,
+              url: baseUrl.appending(path: "/feeds")
+          ),
+          ...
         ]
-
-        return tabs
-    }()
-
-    static let feeds = HotwireTab(
-        title: "Feeds",
-        image: .init(systemName: "tray")!,
-        url: baseUrl.appending(path: "/feeds")
-    )
-
-    ...
+    }
 }
 ```
 
-<div class="text-xs opacity-60 text-center">Tabs.swift</div>
-
-::right::
-
-<DemoVideo src="/videos/tabbar-ios.mp4" />
-
----
-layout: two-cols
-class: gap-4 text-sm
----
-
-# Native Tab Bar
-
-## iOS
-
-<br />
+</CodeCaption>
 
 <CodeCaption caption="SceneController.swift" size="xs">
 
 ```swift
 class SceneController: UIResponder {
-    ...
-
     private lazy var tabBarController =
         HotwireTabBarController(navigatorDelegate: self)
 }
@@ -1384,8 +1363,6 @@ extension SceneController: UIWindowSceneDelegate {
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
-        ...
-
         tabBarController.load(HotwireTab.all)
     }
 }
